@@ -1,0 +1,18 @@
+[
+  {"blindId":"R09","loop":"yes","repeat":"no","pickPos":"794","pickNote":"多次在‘更新 F6 预期’与‘F7 已有结果’之间反复权衡，未增加新证据，最终仍回到同一编辑动作。","conf":"high","note":"持续绕圈明显；‘做’只零散出现，未达到连续5次机械重复。"},
+  {"blindId":"R10","loop":"yes","repeat":"no","pickPos":"873","pickNote":"反复确认同一行仍是预期、F7 已记录结果，并多次回到执行 edit 的决定。","conf":"high","note":"同一决策反复回环；‘做’没有连续出现5次，中间有实质文本。"},
+  {"blindId":"R11","loop":"yes","repeat":"yes","pickPos":"1496","pickNote":"不断在更新 F6 与修复 manifest 文案之间摇摆；末尾多次连续‘做。’。","conf":"high","note":"持续绕圈与机械重复同时存在；尾部‘做。’连续出现超过5次。"},
+  {"blindId":"R12","loop":"yes","repeat":"no","pickPos":"1844","pickNote":"多轮重复讨论 F6 是否改写、F7 是否已覆盖，仍回到同一编辑决定。","conf":"high","note":"持续绕圈明显；重复的‘做’被其他内容打断，不满足连续5次条件。"},
+  {"blindId":"R13","loop":"yes","repeat":"no","pickPos":"390","pickNote":"反复询问下一步、是否需要改 F6，以及是否应先读取 F7 后续内容，没有真正推进。","conf":"high","note":"持续绕圈明显；‘做/读’均被其他句子隔开。"},
+  {"blindId":"R14","loop":"yes","repeat":"no","pickPos":"734","pickNote":"列出多个候选下一步后又反复回到更新 F6，持续重新权衡同一选择。","conf":"high","note":"持续绕圈；没有连续5次相同短语的机械重复。"},
+  {"blindId":"R15","loop":"yes","repeat":"no","pickPos":"734","pickNote":"反复比较改 F6、改 manifest、实机核对等候选动作，多次改变优先级又回到原问题。","conf":"high","note":"持续绕圈明显；‘做’未连续达到5次。"},
+  {"blindId":"R16","loop":"yes","repeat":"yes","pickPos":"1300","pickNote":"围绕更新 F6 的同一决定反复论证；末尾出现长串连续‘做。’。","conf":"high","note":"末尾‘做。’连续机械重复远超5次。"},
+  {"blindId":"R17","loop":"yes","repeat":"no","pickPos":"700","pickNote":"反复在改 F6、修文案、实机核对之间来回判断，始终未落实操作。","conf":"high","note":"绕圈明显；文本中‘做’多为分散出现，未见符合定义的连续5次重复段。"},
+  {"blindId":"R18","loop":"yes","repeat":"yes","pickPos":"900","pickNote":"不断重述更新 F6 的理由和方案，结尾有极长连续‘做。’。","conf":"high","note":"持续绕圈和机械重复均明显。"},
+  {"blindId":"R19","loop":"yes","repeat":"no","pickPos":"900","pickNote":"多次重新评估 A/B/C 选项，反复决定先读台账后续内容，仍未推进到执行。","conf":"high","note":"持续绕圈明显；没有连续5次相同短语且中间无实质内容的段落。"},
+  {"blindId":"R20","loop":"yes","repeat":"no","pickPos":"705","pickNote":"反复比较文案修正与实机核对哪个才是下一步，反复回到相同取舍。","conf":"high","note":"持续绕圈明显；机械重复未达到标准。"},
+  {"blindId":"R21","loop":"yes","repeat":"no","pickPos":"963","pickNote":"在更新台账、修文案、工单标注和实机核对之间反复讨论优先级，最后又回到读取后续内容。","conf":"high","note":"持续绕圈；未见连续5次机械重复。"},
+  {"blindId":"R22","loop":"yes","repeat":"yes","pickPos":"1300","pickNote":"反复重述要读 370–461 行、确认下一步；中后段出现长串连续‘做。’。","conf":"high","note":"持续绕圈和机械重复同时存在，‘做。’连续重复远超5次。"},
+  {"blindId":"R23","loop":"yes","repeat":"no","pickPos":"793","pickNote":"反复在更新 F6 与处理 F7 待办之间权衡，最终又回到同一编辑动作。","conf":"high","note":"持续绕圈明显；‘做’没有连续达到5次。"},
+  {"blindId":"R24","loop":"no","repeat":"yes","pickPos":"0","pickNote":"从‘第1步’连续列到‘第200步’，没有任何实质内容或推进。","conf":"high","note":"没有围绕一个决定反复权衡，因此不算持续绕圈；连续编号属于高度机械化的重复模板。"}
+]

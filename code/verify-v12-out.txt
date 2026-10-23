@@ -1,0 +1,27 @@
+# 机械重复计数 v1.2：三指标独立报告
+
+| 条目 | exact_run | template_run | alternating_run | H1 | H2 |
+| --- | --- | --- | --- | --- | --- |
+| R09 | 1 | 1 | 无 | no | no |
+| R10 | 1 | 1 | 无 | no | no |
+| R11 | 1 | 1 | 无 | no | yes |
+| R12 | 1 | 1 | 无 | no | no |
+| R13 | 1 | 1 | 无 | no | no |
+| R14 | 1 | 1 | 无 | no | no |
+| R15 | 1 | 1 | 无 | yes | no |
+| R16 | 104 | 104 | 无 | yes | yes |
+| R17 | 1 | 1 | 无 | no | no |
+| R18 | 208 | 208 | 无 | yes | yes |
+| R19 | 1 | 1 | 无 | no | no |
+| R20 | 1 | 1 | 无 | no | no |
+| R21 | 1 | 1 | 无 | no | no |
+| R22 | 27 | 27 | 无 | yes | yes |
+| R23 | 1 | 1 | 无 | no | no |
+| R24 | 1 | 200 | 无 | yes | yes |
+
+## 验证说明里的交替例子
+
+- 说明中的正面例：exact_run=1，alternating=p=2×5 单元「好 / 做」
+- 不足 5 轮：exact_run=1，alternating=p=2×3 单元「好 / 做」
+- 周期 3：exact_run=1，alternating=p=3×5 单元「做 / 执行 / 等待」
+- 退化情形（同句）：exact_run=6，alternating=无

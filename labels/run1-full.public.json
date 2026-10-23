@@ -1,0 +1,343 @@
+{
+  "_note": "text 字段未公开：原始响应含真实项目内容。此处保留条目元数据与 text 的 SHA-256，供核对已公开的指标输出；无法据此重算 exact_run / template_run / alternating_run。",
+  "_source": "run1-full.json",
+  "_sourceSha256": "0ab20ae7efb16b2663d3f2025c97d94bde64432f294b7f53a0bf5e1bf22ff21a",
+  "items": [
+    {
+      "blindId": "R01",
+      "chars": 2514,
+      "cjk": 0.82,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 7.56,
+      "textLength": 2514,
+      "textSha256": "27bd913225d317d5cc947e71ee611881d4bf2f2b319b3453864fe4ffac3b555d"
+    },
+    {
+      "blindId": "R02",
+      "chars": 1328,
+      "cjk": 0.735,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "read"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 5.27,
+      "textLength": 1328,
+      "textSha256": "402789db778bd88fbb229d117d8c9dbce71fda9e2e6d884ce2f828370df65a21"
+    },
+    {
+      "blindId": "R03",
+      "chars": 1088,
+      "cjk": 0.782,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 3.68,
+      "textLength": 1088,
+      "textSha256": "76d166b3d890a3a42c9f0d52ff7edd26beac1233d91f4ec1a0d441fa96d45fa8"
+    },
+    {
+      "blindId": "R04",
+      "chars": 1303,
+      "cjk": 0.783,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 3.07,
+      "textLength": 1303,
+      "textSha256": "008c876752778f052c217a051f631b8a8e9ac560289bb976cbced17db0ac00b9"
+    },
+    {
+      "blindId": "R05",
+      "chars": 2447,
+      "cjk": 0.729,
+      "isDegen": true,
+      "toolN": 1,
+      "toolNames": [
+        "grep"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 1.23,
+      "textLength": 2447,
+      "textSha256": "47844ebbec13a9ee0448d7349df0e8ad14319c7b068c72bd3aabb8ebb68389d3"
+    },
+    {
+      "blindId": "R06",
+      "chars": 1809,
+      "cjk": 0.828,
+      "isDegen": true,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 0.55,
+      "textLength": 1809,
+      "textSha256": "4dd5f39504f1bb5575675417df8051369579aa76d0782bf717c25c483a800b17"
+    },
+    {
+      "blindId": "R07",
+      "chars": 1422,
+      "cjk": 0.748,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 3.52,
+      "textLength": 1422,
+      "textSha256": "31c6b53090aa7055f8afbe17a3c0e3b811e9d5814bdf8f40610dfe857efb08c8"
+    },
+    {
+      "blindId": "R08",
+      "chars": 1764,
+      "cjk": 0.86,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "pwsh"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 7.37,
+      "textLength": 1764,
+      "textSha256": "323cba475dd30cf988ab88956821c1c9df25e22a038e4de1dbfcfbba97786e59"
+    },
+    {
+      "blindId": "R09",
+      "chars": 1366,
+      "cjk": 0.74,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 2.93,
+      "textLength": 1366,
+      "textSha256": "ce69076ec0f6dc8ccefda1c3833b511a76cf98d4065504f84de34e47563ec73f"
+    },
+    {
+      "blindId": "R10",
+      "chars": 1052,
+      "cjk": 0.868,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 6.65,
+      "textLength": 1052,
+      "textSha256": "d59c7c6b9c133805c2308fafc0b57f2a6bfaa81aa0e434b5bf772b9522e255d7"
+    },
+    {
+      "blindId": "R11",
+      "chars": 1992,
+      "cjk": 0.763,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 3.01,
+      "textLength": 1992,
+      "textSha256": "568d9a6b03f28702eecda8f08b4ada63d3cca56e81c1d979fc6ea1db11837b87"
+    },
+    {
+      "blindId": "R12",
+      "chars": 2208,
+      "cjk": 0.773,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 5.89,
+      "textLength": 2208,
+      "textSha256": "38ffa98e2bca97270572dbfe1e0e2ee97e0025b5157eb53e475f85dedd7ac5dd"
+    },
+    {
+      "blindId": "R13",
+      "chars": 1045,
+      "cjk": 0.825,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "read"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 2.87,
+      "textLength": 1045,
+      "textSha256": "2b9df8f4063940e61cd25e2f740eda232f168cf352d912c1228aa6d5871ca0c8"
+    },
+    {
+      "blindId": "R14",
+      "chars": 1475,
+      "cjk": 0.706,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 6.1,
+      "textLength": 1475,
+      "textSha256": "8e5692c8d659fcea457e09c528fc47f6766c3923c5e7e9ec8cd059060070c4a6"
+    },
+    {
+      "blindId": "R15",
+      "chars": 1732,
+      "cjk": 0.725,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "pwsh"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 6.35,
+      "textLength": 1732,
+      "textSha256": "070418d6b86267085161f40bb3a660f9ea9eda6dd6295d2a2607f80135163ba2"
+    },
+    {
+      "blindId": "R16",
+      "chars": 1949,
+      "cjk": 0.722,
+      "isDegen": true,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 2.05,
+      "textLength": 1949,
+      "textSha256": "937c90419858a29840c53ca6138da15048c7a9857e4a8abd8354cb487b492124"
+    },
+    {
+      "blindId": "R17",
+      "chars": 2148,
+      "cjk": 0.81,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "read"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 6.52,
+      "textLength": 2148,
+      "textSha256": "46443acd583737940f56235c27262a9da2722f55bcbffa5c2655594cd9b61000"
+    },
+    {
+      "blindId": "R18",
+      "chars": 1819,
+      "cjk": 0.711,
+      "isDegen": true,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 1.65,
+      "textLength": 1819,
+      "textSha256": "3421da7517552f84be287a2956d051fc087afa2dae07557840592d8f81ad1524"
+    },
+    {
+      "blindId": "R19",
+      "chars": 1580,
+      "cjk": 0.769,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "read"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 3.16,
+      "textLength": 1580,
+      "textSha256": "0411efd54dd316978ee6375a3a2a7e242ebc7f402853214657b31413983ed5ec"
+    },
+    {
+      "blindId": "R20",
+      "chars": 1952,
+      "cjk": 0.746,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "grep"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 5.64,
+      "textLength": 1952,
+      "textSha256": "59d40f81d84cf49eb33d95b561dddd998999afaa53e372623fe6fc53830a8a9b"
+    },
+    {
+      "blindId": "R21",
+      "chars": 1285,
+      "cjk": 0.866,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "read"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 10.89,
+      "textLength": 1285,
+      "textSha256": "9c89bf39681a4316dc5f60b9ad7579e15306a0615196407d89d82b40aeadf79b"
+    },
+    {
+      "blindId": "R22",
+      "chars": 1631,
+      "cjk": 0.735,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "read"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 1.84,
+      "textLength": 1631,
+      "textSha256": "b8db4bb7a3a4cd69b363c686da7d94713f5f532215b75cbe1f269fd37c26e808"
+    },
+    {
+      "blindId": "R23",
+      "chars": 1291,
+      "cjk": 0.859,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "edit"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 3.1,
+      "textLength": 1291,
+      "textSha256": "b2d9a13782db6d912252fd40c97cad6ece80cfdd3b434d8e9ba2bc9dc53f63c9"
+    },
+    {
+      "blindId": "R24",
+      "chars": 1292,
+      "cjk": 1,
+      "isDegen": false,
+      "toolN": 1,
+      "toolNames": [
+        "read"
+      ],
+      "stop": "tool_use",
+      "hesPerKilo": 0,
+      "textLength": 1292,
+      "textSha256": "c2d494551ad107ac1f1feab2de867dd3cd8dada09af35706554b747176a35a77"
+    }
+  ]
+}
