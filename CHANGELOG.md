@@ -2,6 +2,32 @@
 
 Versions are Git tags on this repository. The repository name intentionally carries no version.
 
+## v0.2.2
+
+**Added**
+
+- `governance/publish-rules.md` — how release assets are built, verified and kept immutable.
+- `governance/release-incident-2026-10-25.md` — the v0.2.0 asset defect, root cause and response.
+
+**Changed**
+
+- `tools/repro/manifest.json` now records the paper versions it corresponds to (`v0.12` Chinese, `v0.6` English) and the correct current-draft pointers in its layout description.
+
+**Unchanged**
+
+- Code, inputs, expected values and the manifest's claim list are identical to `v0.2.1`.
+- Tags `v0.1.0`, `v0.2.0` and `v0.2.1` are untouched.
+
+## v0.2.1
+
+**Changed**
+
+- Release asset rebuilt from tag blobs, so it is byte-identical to the tag and self-contained (includes `LICENSE` and this file).
+
+**Fixed**
+
+- The `v0.2.0` asset had been built from an unsanitised working tree and contained a local machine path; it also omitted `LICENSE` and `CHANGELOG.md` and differed from the tag in 13 files. That asset was withdrawn. See `governance/release-incident-2026-10-25.md`.
+
 ## v0.2.0 (unreleased at time of writing; `v0.2.0-rc.1` was used for remote verification)
 
 **Added**

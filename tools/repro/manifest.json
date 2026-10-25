@@ -2,8 +2,8 @@
   "generated_by": "tools/build_manifest.py",
   "project": "论文-推理退化循环",
   "paper_versions": {
-    "zh": "论文_v0.11_编辑稿_2026-10-25.md",
-    "en": "paper_en_v0.5_2026-10-25.md"
+    "zh": "论文_v0.12_编辑稿_2026-10-25.md",
+    "en": "paper_en_v0.6_2026-10-25.md"
   },
   "claims_ledger": "主张一致性表_2026-10-25.md",
   "claim_id_note": "items[].id 与 claims ledger 的 claim_id 对应；C7 在 ledger 中合并，在 manifest 中拆成 C7a（比值）与 C7b（p 值）；C_7_8（人机一致 7/8）无独立脚本，未列入 items",
@@ -12,7 +12,7 @@
     "labels/": "公开许可范围内的脱敏标注数据",
     "tools/repro/": "论文数字的可复算实现 + 本 manifest（唯一权威清单）",
     "tools/": "构建、审计与一次性脚本，不是复现入口",
-    "历史稿": "v0.5–v0.9 保留原样，头部有口径注记；当前稿为 v0.10 / paper_en_v0.4"
+    "历史稿": "v0.5–v0.9 保留原样，头部有口径注记；当前稿为 v0.12 / paper_en_v0.6"
   },
   "how_to_run": "cd tools/repro && 按 items[].command 执行；C4/C5/C6 用 python agreement.py --expect",
   "items": [
@@ -20,8 +20,8 @@
       "id": "C1",
       "claim": "行级判据存在结构性盲区：20 份逐份核验的强重复响应，行级守卫一份未捕获，最高行重复中位数 1",
       "paper": {
-        "zh": "v0.11 §4.11",
-        "en": "v0.5 §4.1"
+        "zh": "v0.12 §4.11",
+        "en": "v0.6 §4.1"
       },
       "command": "node verify-strong.mjs",
       "args": {
@@ -53,8 +53,8 @@
       "id": "C4",
       "claim": "批次 A 的绕圈判断观察一致率 = 机会一致率 = 75.0%，κ = 0",
       "paper": {
-        "zh": "v0.11 §4.13",
-        "en": "v0.5 §A.3"
+        "zh": "v0.12 §4.13",
+        "en": "v0.6 §A.3"
       },
       "command": "python agreement.py --expect",
       "args": {
@@ -83,8 +83,8 @@
       "id": "C5",
       "claim": "批次 B 的绕圈判断 16/16 一致、κ = 1.00，15 条共同阳性、1 条共同阴性",
       "paper": {
-        "zh": "v0.11 §4.13",
-        "en": "v0.5 §A.3"
+        "zh": "v0.12 §4.13",
+        "en": "v0.6 §A.3"
       },
       "command": "python agreement.py --expect",
       "args": {
@@ -116,8 +116,8 @@
       "id": "C6",
       "claim": "批次 A 的起点位置差中位 230 字（常规中位数；上中位 264），无双人标注落在 100 字内",
       "paper": {
-        "zh": "v0.11 §4.13",
-        "en": "v0.5 §A.3"
+        "zh": "v0.12 §4.13",
+        "en": "v0.6 §A.3"
       },
       "command": "python agreement.py --expect",
       "args": {
@@ -161,8 +161,8 @@
       "id": "C7a",
       "claim": "九个条件的块间变异 / 独立二项参考比值落在 0.72–1.20",
       "paper": {
-        "zh": "v0.11 §3.5",
-        "en": "v0.5 §3.3"
+        "zh": "v0.12 §3.5",
+        "en": "v0.6 §3.3"
       },
       "command": "node batch-stats.mjs",
       "args": {
@@ -218,8 +218,8 @@
       "id": "C7b",
       "claim": "固定种子单侧块级参数化蒙特卡洛检查，p 约 0.26–0.97，未发现明显过度离散",
       "paper": {
-        "zh": "v0.11 §3.5",
-        "en": "v0.5 §3.3"
+        "zh": "v0.12 §3.5",
+        "en": "v0.6 §3.3"
       },
       "command": "node batch-dispersion-test.mjs",
       "args": {
@@ -266,8 +266,8 @@
       "id": "C2",
       "claim": "删换行后 14/300 的行级命中全部消失；按句读重排 10/300 翻转",
       "paper": {
-        "zh": "v0.11 §4.11",
-        "en": "v0.5 §4.2"
+        "zh": "v0.12 §4.11",
+        "en": "v0.6 §4.2"
       },
       "command": "python tools/exp20_reclassification.py（在项目根运行）",
       "args": {
@@ -289,8 +289,8 @@
       "id": "C3",
       "claim": "28 个构造用例全部符合修订后的预期",
       "paper": {
-        "zh": "v0.11 §4.14",
-        "en": "v0.5 §5"
+        "zh": "v0.12 §4.14",
+        "en": "v0.6 §5"
       },
       "command": "node code/spec-check.mjs；对照 code/spec-out3.txt",
       "args": {},
@@ -306,8 +306,8 @@
       "id": "C3b",
       "claim": "批次 B 的 16 条在三特征下 alternating_run 全为「无」",
       "paper": {
-        "zh": "v0.11 §4.14 末段",
-        "en": "v0.5 §5 末段"
+        "zh": "v0.12 §4.14 末段",
+        "en": "v0.6 §5 末段"
       },
       "command": "cd code && node verify-repeat-v3.mjs；对照 code/verify-v12-out.txt",
       "args": {

@@ -91,4 +91,6 @@ Requires Node.js 18+ and Python 3.10+, standard library only, no network access.
 | Tag | Contents |
 |---|---|
 | `v0.1.0` | Original 14-file package: `code/` and the batch-B labels |
-| `v0.2.0` | Adds `tools/repro/` with the manifest, the agreement implementation and minimal inputs; batch A labels added |
+| `v0.2.1` | Rebuilt release asset, byte-identical to the tag and self-contained |
+| `v0.2.2` | **Current.** Adds `governance/`; the manifest records the paper versions it matches |
+| `v0.2.0` | Superseded; its release asset was withdrawn — see `governance/release-incident-2026-10-25.md` |
