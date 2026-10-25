@@ -1,0 +1,82 @@
+[
+  {
+    "blindId": "R01",
+    "loop": "yes",
+    "repeat": "yes",
+    "resume": "yes",
+    "pickPos": "289",
+    "pickNote": "",
+    "conf": "mid",
+    "note": ""
+  },
+  {
+    "blindId": "R02",
+    "loop": "yes",
+    "repeat": "no",
+    "resume": "na",
+    "pickPos": "466",
+    "pickNote": "",
+    "conf": "high",
+    "note": ""
+  },
+  {
+    "blindId": "R03",
+    "loop": "yes",
+    "repeat": "no",
+    "resume": "yes",
+    "pickPos": "280",
+    "pickNote": "",
+    "conf": "high",
+    "note": ""
+  },
+  {
+    "blindId": "R04",
+    "loop": "yes",
+    "repeat": "no",
+    "resume": "no",
+    "pickPos": "407",
+    "pickNote": "",
+    "conf": "mid",
+    "note": ""
+  },
+  {
+    "blindId": "R05",
+    "loop": "yes",
+    "repeat": "yes",
+    "resume": "no",
+    "pickPos": "1501",
+    "pickNote": "",
+    "conf": "high",
+    "note": ""
+  },
+  {
+    "blindId": "R06",
+    "loop": "yes",
+    "repeat": "yes",
+    "resume": "no",
+    "pickPos": "1039",
+    "pickNote": "",
+    "conf": "high",
+    "note": ""
+  },
+  {
+    "blindId": "R07",
+    "loop": "yes",
+    "repeat": "no",
+    "resume": "no",
+    "pickPos": "261",
+    "pickNote": "",
+    "conf": "mid",
+    "note": ""
+  },
+  {
+    "blindId": "R08",
+    "loop": "yes",
+    "repeat": "no",
+    "resume": "yes",
+    "pickPos": "729",
+    "pickNote": "",
+    "conf": "high",
+    "note": ""
+  }
+]

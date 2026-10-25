@@ -1,0 +1,105 @@
+{
+  "title": "推理状态判断（批次 A · 修订版）",
+  "source": "run1v3-A-answers.html",
+  "method": "仅依据样本文本及表单定义进行独立标注；未联网搜索。",
+  "labels": {
+    "A_sustained_looping": {
+      "yes": "有",
+      "no": "无",
+      "cant": "无法判断"
+    },
+    "B_mechanical_repetition": {
+      "yes": "有",
+      "no": "无",
+      "cant": "无法判断"
+    },
+    "C_resumes_progress": {
+      "yes": "是，之后重新推进了",
+      "no": "否，没有恢复",
+      "na": "不适用",
+      "cant": "无法判断"
+    }
+  },
+  "annotations": [
+    {
+      "sample": "R01",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "no",
+      "C_resumes_progress": "no",
+      "confidence": "high",
+      "evidence_position": 2476,
+      "evidence": "反复回到“更新 F6 还是处理遗留项”的同一决策；末尾虽有“做”，但没有实际完成或验证。",
+      "notes": "明显持续绕圈；未见同一句/短语连续达到 5 次的机械重复。"
+    },
+    {
+      "sample": "R02",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "no",
+      "C_resumes_progress": "no",
+      "confidence": "high",
+      "evidence_position": 913,
+      "evidence": "已经选定修 manifest 文案，却又返回确认台账、重新读末尾，最后仍停在“读 370-461 / 做”。",
+      "notes": "重复检查和重新选择下一步，没有执行修复；“做”未达到连续 5 次。"
+    },
+    {
+      "sample": "R03",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "no",
+      "C_resumes_progress": "no",
+      "confidence": "high",
+      "evidence_position": 618,
+      "evidence": "反复确认 F6 的“预期”是否要改成“结果”，多次得出同一决定后仍只写“做/edit”。",
+      "notes": "有持续绕圈；短语交替出现，没有符合门槛的连续机械重复。"
+    },
+    {
+      "sample": "R04",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "no",
+      "C_resumes_progress": "no",
+      "confidence": "high",
+      "evidence_position": 765,
+      "evidence": "多次重复“下一项 = 更新 F6”并反复讨论是否与 F7 重复，最后仍停在“做/edit”。",
+      "notes": "判断方向反复摆动但没有完成编辑；未见连续 5 次同句/短语。"
+    },
+    {
+      "sample": "R05",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "yes",
+      "C_resumes_progress": "no",
+      "confidence": "high",
+      "evidence_position": 1501,
+      "evidence": "末段出现长串连续“做。”，中间没有实质内容；前文仍在反复讨论同一待办。",
+      "notes": "持续绕圈与机械重复并存；重复串之后没有恢复实质推进。"
+    },
+    {
+      "sample": "R06",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "yes",
+      "C_resumes_progress": "no",
+      "confidence": "high",
+      "evidence_position": 1079,
+      "evidence": "反复复述“把 F6 预期改成结果”这一待办，末尾出现大量连续“做。”。",
+      "notes": "持续绕圈与机械重复并存；没有完成编辑或恢复推进。"
+    },
+    {
+      "sample": "R07",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "no",
+      "C_resumes_progress": "no",
+      "confidence": "high",
+      "evidence_position": 1180,
+      "evidence": "不断重述应更新 F6 的同一决定，末尾连续大量“做。”，未实际执行。",
+      "notes": "持续绕圈与机械重复并存；重复后没有实质推进。"
+    },
+    {
+      "sample": "R08",
+      "A_sustained_looping": "yes",
+      "B_mechanical_repetition": "no",
+      "C_resumes_progress": "no",
+      "confidence": "mid",
+      "evidence_position": 1520,
+      "evidence": "在“安装 v6”与“先修文案”之间反复改变下一步选择，最后又回到检查状态，没有执行。",
+      "notes": "持续绕圈明确；虽有反复措辞，但没有足够证据达到连续 5 次的机械重复门槛。"
+    }
+  ]
+}

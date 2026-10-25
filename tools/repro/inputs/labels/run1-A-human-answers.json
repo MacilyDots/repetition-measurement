@@ -1,0 +1,89 @@
+[
+  {
+    "blindId": "R01",
+    "main": "loop",
+    "also": [
+      "loop",
+      "repeat",
+      "recovered"
+    ],
+    "pos": "1061",
+    "conf": "high",
+    "note": ""
+  },
+  {
+    "blindId": "R02",
+    "main": "loop",
+    "also": [
+      "loop"
+    ],
+    "pos": "90",
+    "conf": "mid",
+    "note": ""
+  },
+  {
+    "blindId": "R03",
+    "main": "loop",
+    "also": [
+      "loop",
+      "recovered"
+    ],
+    "pos": "78",
+    "conf": "mid",
+    "note": ""
+  },
+  {
+    "blindId": "R04",
+    "main": "loop",
+    "also": [
+      "repeat"
+    ],
+    "pos": "407",
+    "conf": "high",
+    "note": ""
+  },
+  {
+    "blindId": "R05",
+    "main": "repeat",
+    "also": [
+      "loop",
+      "repeat"
+    ],
+    "pos": "1237",
+    "conf": "high",
+    "note": ""
+  },
+  {
+    "blindId": "R06",
+    "main": "repeat",
+    "also": [
+      "loop",
+      "repeat"
+    ],
+    "pos": "340",
+    "conf": "mid",
+    "note": ""
+  },
+  {
+    "blindId": "R07",
+    "main": "loop",
+    "also": [
+      "loop",
+      "recovered"
+    ],
+    "pos": "365",
+    "conf": "mid",
+    "note": ""
+  },
+  {
+    "blindId": "R08",
+    "main": "loop",
+    "also": [
+      "loop",
+      "repeat"
+    ],
+    "pos": "576",
+    "conf": "",
+    "note": ""
+  }
+]

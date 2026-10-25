@@ -1,0 +1,18 @@
+[
+  {"blindId":"R09","loop":"yes","repeat":"no","pickPos":"742","pickNote":"","conf":"high","note":""},
+  {"blindId":"R10","loop":"yes","repeat":"no","pickPos":"349","pickNote":"","conf":"high","note":""},
+  {"blindId":"R11","loop":"yes","repeat":"no","pickPos":"452","pickNote":"","conf":"high","note":""},
+  {"blindId":"R12","loop":"yes","repeat":"no","pickPos":"472","pickNote":"","conf":"high","note":""},
+  {"blindId":"R13","loop":"yes","repeat":"no","pickPos":"292","pickNote":"","conf":"high","note":""},
+  {"blindId":"R14","loop":"yes","repeat":"no","pickPos":"1453","pickNote":"","conf":"high","note":""},
+  {"blindId":"R15","loop":"yes","repeat":"yes","pickPos":"931","pickNote":"","conf":"mid","note":""},
+  {"blindId":"R16","loop":"yes","repeat":"yes","pickPos":"1534","pickNote":"","conf":"high","note":""},
+  {"blindId":"R17","loop":"yes","repeat":"no","pickPos":"919","pickNote":"","conf":"mid","note":""},
+  {"blindId":"R18","loop":"yes","repeat":"yes","pickPos":"988","pickNote":"","conf":"high","note":""},
+  {"blindId":"R19","loop":"yes","repeat":"no","pickPos":"744","pickNote":"","conf":"high","note":""},
+  {"blindId":"R20","loop":"yes","repeat":"no","pickPos":"511","pickNote":"","conf":"high","note":""},
+  {"blindId":"R21","loop":"yes","repeat":"no","pickPos":"620","pickNote":"","conf":"high","note":""},
+  {"blindId":"R22","loop":"yes","repeat":"yes","pickPos":"1379","pickNote":"","conf":"high","note":""},
+  {"blindId":"R23","loop":"yes","repeat":"no","pickPos":"580","pickNote":"","conf":"high","note":""},
+  {"blindId":"R24","loop":"no","repeat":"yes","pickPos":"1","pickNote":"","conf":"high","note":""}
+]

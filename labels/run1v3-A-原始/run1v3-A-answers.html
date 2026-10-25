@@ -1,0 +1,599 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8">
+<title>推理状态判断（批次 A · 修订版）</title>
+<style>
+body{font:14px/1.6 system-ui,"Microsoft YaHei",sans-serif;background:#14161a;color:#e6e6e6;margin:0;padding:24px}
+h1{font-size:18px;margin:0 0 8px}h3{font-size:15px;margin:0 0 6px}
+.dim{color:#8b93a1;font-weight:400;font-size:12px}
+.hint{color:#8b93a1;font-size:12px;display:block;margin:2px 0 6px}
+.item{background:#1b1e24;border:1px solid #262b33;border-radius:10px;padding:16px;margin-bottom:26px}
+pre{white-space:pre-wrap;word-break:break-word;max-height:420px;overflow:auto;background:#0f1115;padding:12px;border-radius:6px;font:12px/1.9 ui-monospace,Consolas,monospace;margin:10px 0}
+.seg{cursor:pointer;border-radius:3px;padding:1px 0}
+.seg:hover{background:#2b6cb0;color:#fff}
+.q{font-size:13px;margin-top:14px;font-weight:600}
+.opts{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin:4px 0 2px;font-weight:400}
+.opts label{display:flex;align-items:center;gap:5px;cursor:pointer}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0}
+.row input[type=text]{flex:1;min-width:220px}
+.picked{color:#7cc4ff;font-size:12px;min-width:80px}
+select,input[type=text]{background:#0f1115;color:#e6e6e6;border:1px solid #333a45;border-radius:6px;padding:6px 9px}
+input[type=radio]{accent-color:#2b6cb0}
+input[type=text]{font-size:13px;font-weight:400}
+button{background:#2b6cb0;color:#fff;border:0;border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer}
+button.clr{background:#3a4450}
+.bar{position:sticky;top:0;background:#14161a;padding:12px 0;border-bottom:1px solid #262b33;margin-bottom:18px;z-index:9}
+</style></head><body>
+<div class="bar">
+  <h1>推理状态判断（批次 A · 修订版）</h1>
+  <div class="dim">共 8 段文本，每段是模型一次工作尝试里的推理输出。
+  请分别判断<b>是否存在持续绕圈</b>和<b>是否存在机械重复</b>（两者可以同时存在），再判断出现异常后有没有恢复推进。
+  <b>请独立判断。</b>不确定就选「无法判断」。</div>
+  <div class="dim" style="margin-top:6px">注：「机械重复」的 5 次门槛是本轮试标后新加的操作规则，用于让判断可复现，不是既有定义。</div>
+  <p><button onclick="ex()">导出结果</button> <span id="done" class="dim"></span></p>
+</div>
+<section class="item" data-id="R01">
+  <h3>R01 <span class="dim">2514 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR01" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR01" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR01" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR01" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR01" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR01" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR01" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR01" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR01" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR01" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR01">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">文件已读（部分）。</span><span class="seg" data-pos="9">我需要 edit 的是 F6 节的第 294 行&quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="74">&quot;
+</span><span class="seg" data-pos="77">但注意：F7 节已经记录了 v6 结果（第 320-369 行）。</span><span class="seg" data-pos="110">所以台账已经更新过了（F7 节由谁写的？</span><span class="seg" data-pos="130">看起来是之前会话写的复核报告摘要）。</span><span class="seg" data-pos="150">所以 F6 的&quot;预期&quot;行其实可以改成&quot;结果&quot;，但 F7 已有实际结果。</span><span class="seg" data-pos="187">嗯。</span><span class="seg" data-pos="189">当前任务：&quot;恢复之前的任务。</span><span class="seg" data-pos="203">先明确当前唯一需要完成的下一步，然后直接完成它&quot;。</span><span class="seg" data-pos="230">之前任务的状态：
+</span><span class="seg" data-pos="239">- v6 已验证（v5→v6 只差 3 格）
+</span><span class="seg" data-pos="262">- F6 台账记录
+</span><span class="seg" data-pos="272">- F7 节已存在（复核报告）
+</span><span class="seg" data-pos="289">所以台账其实已经更新到 F7 了。</span><span class="seg" data-pos="308">那&quot;唯一需要完成的下一步&quot;是什么？</span><span class="seg" data-pos="327">之前我说过：&quot;更新台账，把验证结果写入。</span><span class="seg" data-pos="347">&quot; 但 F7 已经存在了（说明已记录）。</span><span class="seg" data-pos="369">等等——F7 是谁写的？</span><span class="seg" data-pos="381">可能是我之前会话写的（或者另一个环节）。</span><span class="seg" data-pos="401">F7 标题&quot;2026-10-16 22:33–22:51：v6 独立签收复核&quot;。</span><span class="seg" data-pos="443">看起来台账已经有完整记录（F6 + F7）。</span><span class="seg" data-pos="467">所以下一个明确、未完成的步骤是什么？</span><span class="seg" data-pos="487">回顾之前任务链：
+</span><span class="seg" data-pos="496">1. v6 重跑 ✓
+</span><span class="seg" data-pos="507">2. v5→v6 对比验证 ✓
+</span><span class="seg" data-pos="523">3. 更新台账 → F6 节&quot;预期&quot;改结果？</span><span class="seg" data-pos="545">但 F7 已有完整记录。</span><span class="seg" data-pos="559">所以实际上台账已更新（F7 节）。</span><span class="seg" data-pos="576">我只需把 F6 的&quot;预期&quot;标记为已兑现？</span><span class="seg" data-pos="596">这是小编辑。</span><span class="seg" data-pos="604">或者：F6 第 294 行的&quot;预期&quot;确实应该改成&quot;结果（已兑现，见 F7）&quot;。</span><span class="seg" data-pos="645">这是&quot;之前任务中已经明确、尚未完成的下一项具体操作&quot;吗？</span><span class="seg" data-pos="675">嗯。</span><span class="seg" data-pos="677">用户说&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="711">之前我最后一轮说：&quot;唯一待办是验证它相对 v5 确实只动了 3 格。</span><span class="seg" data-pos="745">&quot;——已做了（diff 完成）。</span><span class="seg" data-pos="763">然后我打算&quot;更新台账&quot;。</span><span class="seg" data-pos="777">所以下一个明确操作：**更新台账 F6 节的预期为已兑现结果**。</span><span class="seg" data-pos="812">做这个edit（文件已读）。</span><span class="seg" data-pos="828">edit：old = &quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="880">&quot;
+</span><span class="seg" data-pos="882">new = &quot;**结果**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）—— **已兑现，见 F7 独立复核**。</span><span class="seg" data-pos="949">&quot;
+</span><span class="seg" data-pos="952">做。</span><span class="seg" data-pos="956">然后还有：F7 里说&quot;① 运行期补丁状态与内容矛盾 修一半&quot;（文案没跟上代码）——这可能是下一个可做的修复项。</span><span class="seg" data-pos="1013">但用户说&quot;唯一需要完成的下一步&quot;。</span><span class="seg" data-pos="1032">最直接的下一步：把 F6 预期改为已兑现（台账闭环）。</span><span class="seg" data-pos="1061">做 edit。</span><span class="seg" data-pos="1070">嗯，但这是不是&quot;已经明确、尚未完成的&quot;？</span><span class="seg" data-pos="1090">我上一轮说&quot;更新台账&quot;确实是计划中的下一步。</span><span class="seg" data-pos="1114">做。</span><span class="seg" data-pos="1118">edit。</span><span class="seg" data-pos="1125">做。</span><span class="seg" data-pos="1129">不过，F7 已被记录——说明台账已更新过（F7 就是我&quot;更新台账&quot;的产物？</span><span class="seg" data-pos="1166">）。</span><span class="seg" data-pos="1170">如果 F7 是我写的（之前的会话），那台账更新已完成。</span><span class="seg" data-pos="1199">那&quot;下一步&quot;是什么？</span><span class="seg" data-pos="1211">看 F7 的结论：
+</span><span class="seg" data-pos="1221">- &quot;上一轮 3 项需改的处置&quot;：① 修一半（文案没跟上代码，需改一句）② 已修 ③ 仍未做（v6 未安装）
+</span><span class="seg" data-pos="1277">所以下一个明确操作可能是：
+</span><span class="seg" data-pos="1291">- ① 修 manifest 文案（改一句）
+</span><span class="seg" data-pos="1314">- ③ 安装 v6 并做实机核对
+</span><span class="seg" data-pos="1332">但③需要安装（重大操作，可能需用户批准）。</span><span class="seg" data-pos="1355">①是小修复。</span><span class="seg" data-pos="1363">用户说&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作。</span><span class="seg" data-pos="1394">如果缺少必要信息，只指出缺少什么。</span><span class="seg" data-pos="1411">&quot;
+</span><span class="seg" data-pos="1414">最明确、最不需要额外信息的：**修 manifest 文案**（F7 指出的&quot;文案没跟上代码&quot;）。</span><span class="seg" data-pos="1465">但等等——这涉及生产文件（manifest）。</span><span class="seg" data-pos="1488">改它需要理解现状。</span><span class="seg" data-pos="1499">或者：更新台账 F6 的&quot;预期&quot;为已兑现（最安全、纯文档）。</span><span class="seg" data-pos="1531">我选：更新台账 F6 预期（因为这是我上一轮明确说的&quot;唯一待办&quot;）。</span><span class="seg" data-pos="1567">但 F7 已存在说明……嗯。</span><span class="seg" data-pos="1583">实际上，F7 节的内容看起来就是&quot;独立签收复核报告&quot;的摘要（可能是 Codex 侧或复核方写的？</span><span class="seg" data-pos="1631">&quot;报告：Art_Source/.../1016_2242_dsh_review_m3_v6.md&quot;）。</span><span class="seg" data-pos="1684">这可能是另一个 agent（如 reviewer）写的，不是 DSH。</span><span class="seg" data-pos="1721">无论如何，台账已经记录了 v6 结果。</span><span class="seg" data-pos="1742">那我的&quot;唯一待办&quot;（更新台账）可能已经由 F7 完成。</span><span class="seg" data-pos="1771">所以真正的下一步：**F7 指出的两个未闭环项**（① 文案、③ 安装）。</span><span class="seg" data-pos="1810">其中③需要安装（用户批准）。</span><span class="seg" data-pos="1824">①是文档/代码层面小修。</span><span class="seg" data-pos="1838">但①涉及&quot;manifest 说明文本&quot;——那是运行时产物（每次运行重新生成）。</span><span class="seg" data-pos="1877">改哪？</span><span class="seg" data-pos="1882">F7 说&quot;manifest 里的说明文本仍写「与 source_before 逐项相同」&quot;——这是 prepare_sword_grip_runtime.py 生成的说明文本。</span><span class="seg" data-pos="1970">要改：生成脚本里的文案字符串。</span><span class="seg" data-pos="1987">这是代码修改。</span><span class="seg" data-pos="1994">可以做（改 prepare 脚本的文案 + 重跑 prepare）。</span><span class="seg" data-pos="2030">嗯，但这会触发 v6 重跑（改 prepare 逻辑/文案）→ 可能影响 verified 产物？</span><span class="seg" data-pos="2079">文案不影响产物内容（只是 manifest 字段）。</span><span class="seg" data-pos="2107">但改 prepare 脚本 + 重跑会重新生成 v6（耗 1 分钟）。</span><span class="seg" data-pos="2144">或者，更保守：只改台账，不动代码。</span><span class="seg" data-pos="2163">综合考虑：用户要求&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="2203">最明确、风险最低、且确实是&quot;之前任务中已明确的&quot;：**更新台账 F6 预期为已兑现**（我上一轮原话：&quot;现在：更新台账，把验证结果写入。</span><span class="seg" data-pos="2271">&quot;）
+</span><span class="seg" data-pos="2275">做这个。</span><span class="seg" data-pos="2281">edit。</span><span class="seg" data-pos="2288">做。</span><span class="seg" data-pos="2292">（文件已读，可以 edit。</span><span class="seg" data-pos="2306">）
+</span><span class="seg" data-pos="2309">做。</span><span class="seg" data-pos="2313">old_string: &quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="2366">&quot;
+</span><span class="seg" data-pos="2368">new_string: &quot;**结果（已兑现，见 F7 独立复核）**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）；实测 v5→v6 差异 6 像素 = 3 格，方向全为「武器 → 身体」。</span><span class="seg" data-pos="2473">&quot;
+</span><span class="seg" data-pos="2476">做。</span><span class="seg" data-pos="2480">执行。</span><span class="seg" data-pos="2485">做。</span><span class="seg" data-pos="2489">不总结不讨论——直接做，然后简短说完成。</span><span class="seg" data-pos="2511">做。</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR01" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR01" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR01" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<section class="item" data-id="R02">
+  <h3>R02 <span class="dim">1328 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR02" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR02" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR02" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR02" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR02" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR02" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR02" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR02" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR02" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR02" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR02">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">读到了台账 F6/F7 节。</span><span class="seg" data-pos="14">现在看到 F7 节已经是事后复核记录（&quot;v6 独立签收复核（离线通过，仍不得签发）&quot;）——所以 v6 复核已经做过了（在 22:33–22:51）！</span><span class="seg" data-pos="90">这意味着：v6 已经被复核过了（F7 节），结论：
+</span><span class="seg" data-pos="116">- 预期兑现（3 格、硬违规 0）
+</span><span class="seg" data-pos="134">- 三项回归全绿
+</span><span class="seg" data-pos="143">- 但&quot;仍不得签发&quot;（因为 §1 实机核对未做）
+</span><span class="seg" data-pos="169">所以当前状态：**v6 已复核通过（离线），但&quot;离线通过&quot;后还需实机核对（M3 §1）才能签发**。</span><span class="seg" data-pos="221">而 F7 节的&quot;处置&quot;包括：
+</span><span class="seg" data-pos="236">1. 运行期补丁 manifest 文案没跟上代码（需改一句）
+</span><span class="seg" data-pos="268">2. old_frozen_before 已修
+</span><span class="seg" data-pos="292">3. M3 §1 实机核对仍未做（v6 未安装）
+</span><span class="seg" data-pos="317">4. 工单 §4 字面冲突需标注
+</span><span class="seg" data-pos="335">所以**下一项明确未完成的操作**：
+</span><span class="seg" data-pos="355">从 F7 的处置看：
+</span><span class="seg" data-pos="366">- ① 需改一句（运行期补丁 manifest 说明文本）—— 这是 DSH 侧的待办
+</span><span class="seg" data-pos="410">- ③ M3 §1 实机核对 = 需要安装 v6 后做（安装 = 换生产文件，属需用户批准/Codex 执行）
+</span><span class="seg" data-pos="466">- 但等等，F7 是&quot;复核结论&quot;，说明 v6 已复核。</span><span class="seg" data-pos="495">那&quot;当前唯一需要完成的下一步&quot;是什么？</span><span class="seg" data-pos="516">看 F7 未完成：
+</span><span class="seg" data-pos="526">- ① manifest 文案改一句（DSH 可做）
+</span><span class="seg" data-pos="553">- ③ §1 实机核对（需安装 v6 后才能做，而安装 v6 需要用户/Codex）
+</span><span class="seg" data-pos="597">但用户的指令是&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="635">从 F7 的&quot;处置&quot;看，最明确的 DSH 可立即做的：① 修 manifest 那句文案。</span><span class="seg" data-pos="682">但……等等，读到这里我发现：台账已经记录了 F7（v6 已复核）。</span><span class="seg" data-pos="715">说明我（上一个回合结束前）已经做完了 v6 复核并写进了台账。</span><span class="seg" data-pos="748">所以现在台账最新状态：
+</span><span class="seg" data-pos="760">- F6：v6 已产出，预期兑现
+</span><span class="seg" data-pos="777">- F7：v6 已独立复核通过（离线），3 项处置
+</span><span class="seg" data-pos="804">那&quot;下一项&quot;是 ① 修 manifest 文案（F7 处置第 1 项）。</span><span class="seg" data-pos="842">或者 ② 工单 §4 标注。</span><span class="seg" data-pos="858">或者 ③ 实机核对（但需安装 v6）。</span><span class="seg" data-pos="879">用户说&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="913">最具体、最明确、DSH 能立即做且不需要外部依赖的：**① 修运行期补丁 manifest 里的说明文案**（F7 说&quot;文案没跟上代码，需改一句&quot;）。</span><span class="seg" data-pos="990">做这个。</span><span class="seg" data-pos="996">先看那个 manifest 的说明文本在哪。</span><span class="seg" data-pos="1020">F7 说：manifest 里的说明文本仍写「与 `source_before` 逐项相同」，而两表 key 集合不同 → 需改。</span><span class="seg" data-pos="1087">这个说明文本应该在 `prepare_sword_grip_runtime.py` 或生成的 manifest 里。</span><span class="seg" data-pos="1147">或者 `rebuild_m3_occlusion_batch.py` 里。</span><span class="seg" data-pos="1186">先 grep &quot;source_before&quot; 相关文案。</span><span class="seg" data-pos="1216">做。</span><span class="seg" data-pos="1220">实际上，先确认 F7 最后一行的处置是否都做了。</span><span class="seg" data-pos="1244">读台账 370 行之后。</span><span class="seg" data-pos="1258">做。</span><span class="seg" data-pos="1260">读剩余部分（370-461）。</span><span class="seg" data-pos="1277">嗯，为了明确&quot;下一项&quot;，我应该读台账末尾（F7 之后是否还有内容）。</span><span class="seg" data-pos="1313">读 370-461。</span><span class="seg" data-pos="1325">做。</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR02" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR02" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR02" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<section class="item" data-id="R03">
+  <h3>R03 <span class="dim">1088 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR03" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR03" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR03" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR03" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR03" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR03" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR03" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR03" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR03" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR03" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR03">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">台账已经更新过了（F6 节的结果已经写了实际结果——行 294 是&quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="74">&quot;）
+</span><span class="seg" data-pos="78">哦，行 294 还是&quot;**预期**&quot;，但后面已经有 F7 节（v6 独立签收复核）记录了实际结果。</span><span class="seg" data-pos="129">等等，我之前 edit 失败了（文件没读），所以没改成。</span><span class="seg" data-pos="157">但现在看文件，F6 节行 294 仍是&quot;预期&quot;，而 F7 节是新加的（22:33–22:51 的 v6 复核）。</span><span class="seg" data-pos="215">所以台账已经有 F7 节详细记录了 v6 结果。</span><span class="seg" data-pos="239">但 F6 节的&quot;预期&quot;表述没有改成实际结果。</span><span class="seg" data-pos="263">不过 F7 节已经完整覆盖了结果。</span><span class="seg" data-pos="280">所以 F6 行 294 的&quot;预期&quot;可以留着（历史记录），或者改成结果。</span><span class="seg" data-pos="317">我之前计划的 edit 是改 F6 行 294 的&quot;预期&quot;→&quot;结果&quot;。</span><span class="seg" data-pos="354">但 F7 节已经记录了结果。</span><span class="seg" data-pos="368">改 F6 会不会重复？</span><span class="seg" data-pos="381">不重复——F6 是&quot;v6 的改动&quot;，F7 是&quot;签收复核&quot;。</span><span class="seg" data-pos="410">F6 行 294 的&quot;预期&quot;可以更新为&quot;结果&quot;或加一句指向 F7。</span><span class="seg" data-pos="445">先确认：我之前读到的文件内容（280-369）显示 F6 行 294 是&quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="522">&quot;——还没改成结果。</span><span class="seg" data-pos="534">所以待办：把 F6 行 294 的&quot;预期&quot;改成实际结果（或指向 F7）。</span><span class="seg" data-pos="572">但用户说&quot;不要总结或讨论任务。</span><span class="seg" data-pos="587">请直接执行之前任务中已经明确、尚未完成的下一项具体操作。</span><span class="seg" data-pos="615">&quot;
+</span><span class="seg" data-pos="618">之前明确的下一项操作 = 更新台账 F6 节记录 v6 终态。</span><span class="seg" data-pos="651">做：edit 行 294。</span><span class="seg" data-pos="666">但注意：F7 节已经记录了 v6 结果。</span><span class="seg" data-pos="686">所以 F6 行 294 只需简单更新为&quot;**结果**：见 F7 节&quot;或者写实际结果。</span><span class="seg" data-pos="730">为避免重复，改 F6 行 294 为简短结果（指向 F7）。</span><span class="seg" data-pos="762">edit：
+</span><span class="seg" data-pos="768">old: **预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="814">new: **结果**：五阶段全 `exit=0`，`verdict=PASS`、硬违规 **1 → 0**、只多改 3 格（214 vs 211）、冻结包 `FrozenSwordGrip_bd95f89cbd16`。</span><span class="seg" data-pos="924">v5→v6 像素级比对 3 格全部为「武器→身体」，与预期逐格吻合（详见 F7 独立签收）。</span><span class="seg" data-pos="972">做。</span><span class="seg" data-pos="976">edit。</span><span class="seg" data-pos="983">做。</span><span class="seg" data-pos="987">我已读过文件（280-369），edit 应该允许（读过该文件即可？</span><span class="seg" data-pos="1021">edit 要求 read 过文件——我读了 offset 280 limit 90，覆盖了要改的行 294）。</span><span class="seg" data-pos="1078">做。</span><span class="seg" data-pos="1082">edit。</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR03" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR03" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR03" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<section class="item" data-id="R04">
+  <h3>R04 <span class="dim">1303 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR04" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR04" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR04" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR04" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR04" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR04" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR04" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR04" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR04" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR04" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR04">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">读到 F7 节了。</span><span class="seg" data-pos="9">发现关键信息：**复核方在 22:42 又做了一次独立复核（F7）**，结论：v6 完全兑现，三项回归全绿。</span><span class="seg" data-pos="63">但它指出上一轮 3 项需改的处置：
+</span><span class="seg" data-pos="81">- ① 修一半：manifest 说明文本仍写「与 source_before 逐项相同」，而实际代码已改为与当前生产文件比对 → 文案没跟上代码，需改一句
+</span><span class="seg" data-pos="160">- ② 已修
+</span><span class="seg" data-pos="167">- ③ 仍未做（v6 未安装）
+</span><span class="seg" data-pos="184">以及 §4 字面冲突需留痕。</span><span class="seg" data-pos="200">所以当前唯一需要完成的下一步，按台账 F7 的结论，应该是：
+</span><span class="seg" data-pos="231">1. 改 `prepare_sword_grip_runtime.py` 里那句 manifest 说明文本（文案跟上代码）—— 这是 F7 指出的待改 ①
+</span><span class="seg" data-pos="310">2. 或者更新台账 F6 节记录 v6 实际结果（我刚才在做的）
+</span><span class="seg" data-pos="344">用户让我&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="379">之前任务中已经明确、尚未完成的下一项具体操作是什么？</span><span class="seg" data-pos="407">我在上一步刚开始做的是：**更新台账 F6 节，记录 v6 终态和验证结果**（把&quot;预期&quot;改为实际结果 + v5→v6 验证）。</span><span class="seg" data-pos="473">这个还没完成（edit 失败因为没读过文件，现在读了 280-369 行，包含 F6 的 294 行&quot;预期&quot;）。</span><span class="seg" data-pos="531">所以直接完成它：edit 294 行的&quot;预期&quot;段落，改成实际结果。</span><span class="seg" data-pos="566">但我读的内容里，F6 的&quot;预期&quot;在 294 行：
+</span><span class="seg" data-pos="591">```
+</span><span class="seg" data-pos="595">**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="636">```
+</span><span class="seg" data-pos="641">而 F7 已经记录了 v6 结果（22:33-22:51）。</span><span class="seg" data-pos="671">所以 F6 的&quot;预期&quot;应该改为实际结果，或者保留（因为 F7 已记录）。</span><span class="seg" data-pos="709">实际上，F7 节已经详细记录了 v6 结果。</span><span class="seg" data-pos="731">所以 F6 的&quot;预期&quot;可以更新为实际结果（引用 F7）或直接改。</span><span class="seg" data-pos="765">用户要求：直接执行下一项具体操作。</span><span class="seg" data-pos="782">下一项 = 更新台账 F6 的&quot;预期&quot;为实际结果。</span><span class="seg" data-pos="809">做：edit 294 行。</span><span class="seg" data-pos="824">原文（我已知）：
+</span><span class="seg" data-pos="833">```
+</span><span class="seg" data-pos="837">**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="878">```
+</span><span class="seg" data-pos="883">但注意：文件已被读过（我刚读了 280-369）。</span><span class="seg" data-pos="908">edit 应该能工作。</span><span class="seg" data-pos="921">不过要小心：F7 节后面还有内容（370+ 行）。</span><span class="seg" data-pos="946">但 edit 不需要读全文。</span><span class="seg" data-pos="962">edit 294 行。</span><span class="seg" data-pos="975">做。</span><span class="seg" data-pos="979">new:
+</span><span class="seg" data-pos="984">```
+</span><span class="seg" data-pos="988">**结果（v6 已于 22:32 跑完，并 22:33–22:51 经独立复核，详见 F7）**：五阶段全 `exit=0`，
+</span><span class="seg" data-pos="1052">`verdict=PASS`；硬违规格 1 → **0**；相对 v5 只多改 **3 格**（`back_slash_07`(63,70)、
+</span><span class="seg" data-pos="1124">`front_rise_02`(67,54)、`back_rise_04`(59,74)），方向均为「武器 → 身体」，与 F6 预期逐格吻合。</span><span class="seg" data-pos="1197">```
+</span><span class="seg" data-pos="1202">做。</span><span class="seg" data-pos="1206">不过等等：F7 已经记录了这个。</span><span class="seg" data-pos="1222">更新 F6 的预期为结果是否重复？</span><span class="seg" data-pos="1241">F6 的&quot;预期&quot;是当时写的预期。</span><span class="seg" data-pos="1257">现在 v6 跑完了，更新为结果合理（避免读者以为还是预期）。</span><span class="seg" data-pos="1289">做。</span><span class="seg" data-pos="1293">edit。</span><span class="seg" data-pos="1300">做。</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR04" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR04" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR04" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<section class="item" data-id="R05">
+  <h3>R05 <span class="dim">2447 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR05" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR05" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR05" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR05" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR05" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR05" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR05" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR05" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR05" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR05" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR05">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">台账已经包含 F7 节（v6 独立签收复核），甚至内容非常详细！</span><span class="seg" data-pos="32">原来之前已经完成了复核并写入了台账（F7 节 2026-10-16 22:33–22:51）。</span><span class="seg" data-pos="81">所以 F7 节已经记录：
+</span><span class="seg" data-pos="94">- v6 独立签收复核通过
+</span><span class="seg" data-pos="108">- 三项回归全绿
+</span><span class="seg" data-pos="117">- v5→v6 差异 = 3 像素 = 3 格
+</span><span class="seg" data-pos="141">- 上一轮 3 项需改的处置（① 修一半——文案没跟上代码；② 已修；③ 实机核对仍未做）
+</span><span class="seg" data-pos="187">- 与工单 §4 的字面冲突（需标注）
+</span><span class="seg" data-pos="208">**所以台账已更新到 F7**，而 F6 的&quot;预期&quot;部分可能还是旧的（第 294 行&quot;**预期**：v6 相对 v5 只多改 3 格&quot;）。</span><span class="seg" data-pos="279">现在我要做的：F6 第 294 行改实际结果？</span><span class="seg" data-pos="302">但 F7 已经说明了。</span><span class="seg" data-pos="315">**关键遗留**（F7 节列出）：
+</span><span class="seg" data-pos="333">1. ① 运行期补丁状态说明文案没跟上代码 → **需改一句**
+</span><span class="seg" data-pos="366">2. ③ M3 §1 实机核对**仍未做**（v6 未安装）
+</span><span class="seg" data-pos="397">3. 工单 §4 字面冲突标注
+</span><span class="seg" data-pos="414">所以真正&quot;明确、尚未完成的下一项具体操作&quot;可能是：
+</span><span class="seg" data-pos="440">- **改 ① 的文案**（一句），或
+</span><span class="seg" data-pos="460">- **安装 v6 做 M3 §1 实机核对**（③ 仍未做），或
+</span><span class="seg" data-pos="494">- 工单 §4 标注
+</span><span class="seg" data-pos="506">哪个是&quot;下一项&quot;？</span><span class="seg" data-pos="517">F7 是 22:33–22:51 写的（这是之前的复核，已经写入台账）。</span><span class="seg" data-pos="553">所以台账已经记录了全部结论。</span><span class="seg" data-pos="569">**当前状态**：v6 复核通过，但**仍不得签发**（F7 标题&quot;离线通过，仍不得签发&quot;），因为 ③ 实机核对未做、① 文案待改、§4 需标注。</span><span class="seg" data-pos="644">下一项具体操作应该是：**修 ① 的文案**（最小、明确）或**工单 §4 标注**。</span><span class="seg" data-pos="689">但用户说&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="724">从 F7 的&quot;上一轮 3 项需改的处置&quot;：
+</span><span class="seg" data-pos="746">- ① 修一半 → 需改一句文案
+</span><span class="seg" data-pos="763">- ③ 仍未做（实机核对）
+</span><span class="seg" data-pos="778">**最小且明确的下一步**：改 ① 的 manifest 说明文案。</span><span class="seg" data-pos="814">但等等——用户要求&quot;不要总结或讨论，直接执行&quot;。</span><span class="seg" data-pos="838">所以我应直接做那个具体操作。</span><span class="seg" data-pos="854">问题是：台账 F7 已经写得很全了。</span><span class="seg" data-pos="872">我要改的是什么？</span><span class="seg" data-pos="882">让我重新审视：F6 第 294 行&quot;预期&quot;仍是旧的（预期还没改成结果）。</span><span class="seg" data-pos="918">但 F7 已经记录结果了。</span><span class="seg" data-pos="933">所以实际待办：
+</span><span class="seg" data-pos="941">1. **F6 第 294 行的&quot;预期&quot;可以更新为结果**（但 F7 已覆盖，可能不必）
+</span><span class="seg" data-pos="986">2. **① 文案**：`prepare_sword_grip_runtime.py` 里 manifest status 的说明文本&quot;与 source_before 逐项相同&quot;要改
+</span><span class="seg" data-pos="1078">3. **工单 §4 标注**
+</span><span class="seg" data-pos="1095">最明确的一项：**改 runtime_patch_manifest 的说明文案**（F7 明确&quot;文案没跟上代码，需改一句&quot;）。</span><span class="seg" data-pos="1160">做这个。</span><span class="seg" data-pos="1166">具体：找到 `prepare_sword_grip_runtime.py` 里写 status 说明的地方，改文案。</span><span class="seg" data-pos="1226">先 grep 找。</span><span class="seg" data-pos="1237">做。</span><span class="seg" data-pos="1241">grep 'source_before' 在 prepare_sword_grip_runtime.py 里的相关文案。</span><span class="seg" data-pos="1303">做。</span><span class="seg" data-pos="1307">但用户要&quot;直接执行&quot;，不要讨论。</span><span class="seg" data-pos="1323">我应该直接做改动。</span><span class="seg" data-pos="1334">grep 找文案位置。</span><span class="seg" data-pos="1347">做。</span><span class="seg" data-pos="1351">grep -n '逐项相同' 或 'source_before' prepare_sword_grip_runtime.py。</span><span class="seg" data-pos="1416">做。</span><span class="seg" data-pos="1420">做。</span><span class="seg" data-pos="1424">执行 grep。</span><span class="seg" data-pos="1434">做。</span><span class="seg" data-pos="1438">做。</span><span class="seg" data-pos="1442">grep '与 source_before' 或 '逐项相同'。</span><span class="seg" data-pos="1476">做。</span><span class="seg" data-pos="1480">做。</span><span class="seg" data-pos="1484">（输出 tool call。</span><span class="seg" data-pos="1498">）
+</span><span class="seg" data-pos="1501">做。</span><span class="seg" data-pos="1505">做。</span><span class="seg" data-pos="1509">grep pattern '逐项相同|source_before 逐项|与 source_before'.
+</span><span class="seg" data-pos="1564">做。</span><span class="seg" data-pos="1568">做。</span><span class="seg" data-pos="1572">执行。</span><span class="seg" data-pos="1577">做。</span><span class="seg" data-pos="1581">做。</span><span class="seg" data-pos="1585">做。</span><span class="seg" data-pos="1589">做。</span><span class="seg" data-pos="1593">做。</span><span class="seg" data-pos="1597">做。</span><span class="seg" data-pos="1601">做。</span><span class="seg" data-pos="1605">做。</span><span class="seg" data-pos="1609">做。</span><span class="seg" data-pos="1613">做。</span><span class="seg" data-pos="1617">做。</span><span class="seg" data-pos="1621">做。</span><span class="seg" data-pos="1625">做。</span><span class="seg" data-pos="1629">做。</span><span class="seg" data-pos="1633">做。</span><span class="seg" data-pos="1637">做。</span><span class="seg" data-pos="1641">做。</span><span class="seg" data-pos="1645">做。</span><span class="seg" data-pos="1649">做。</span><span class="seg" data-pos="1653">做。</span><span class="seg" data-pos="1657">做。</span><span class="seg" data-pos="1661">做。</span><span class="seg" data-pos="1665">做。</span><span class="seg" data-pos="1669">做。</span><span class="seg" data-pos="1673">做。</span><span class="seg" data-pos="1677">做。</span><span class="seg" data-pos="1681">做。</span><span class="seg" data-pos="1685">做。</span><span class="seg" data-pos="1689">做。</span><span class="seg" data-pos="1693">做。</span><span class="seg" data-pos="1697">做。</span><span class="seg" data-pos="1701">做。</span><span class="seg" data-pos="1705">做。</span><span class="seg" data-pos="1709">做。</span><span class="seg" data-pos="1713">做。</span><span class="seg" data-pos="1717">做。</span><span class="seg" data-pos="1721">做。</span><span class="seg" data-pos="1725">做。</span><span class="seg" data-pos="1729">做。</span><span class="seg" data-pos="1733">做。</span><span class="seg" data-pos="1737">做。</span><span class="seg" data-pos="1741">做。</span><span class="seg" data-pos="1745">做。</span><span class="seg" data-pos="1749">做。</span><span class="seg" data-pos="1753">做。</span><span class="seg" data-pos="1757">做。</span><span class="seg" data-pos="1761">做。</span><span class="seg" data-pos="1765">做。</span><span class="seg" data-pos="1769">做。</span><span class="seg" data-pos="1773">做。</span><span class="seg" data-pos="1777">做。</span><span class="seg" data-pos="1781">做。</span><span class="seg" data-pos="1785">做。</span><span class="seg" data-pos="1789">做。</span><span class="seg" data-pos="1793">做。</span><span class="seg" data-pos="1797">做。</span><span class="seg" data-pos="1801">做。</span><span class="seg" data-pos="1805">做。</span><span class="seg" data-pos="1809">做。</span><span class="seg" data-pos="1813">做。</span><span class="seg" data-pos="1817">做。</span><span class="seg" data-pos="1821">做。</span><span class="seg" data-pos="1825">做。</span><span class="seg" data-pos="1829">做。</span><span class="seg" data-pos="1833">做。</span><span class="seg" data-pos="1837">做。</span><span class="seg" data-pos="1841">做。</span><span class="seg" data-pos="1845">做。</span><span class="seg" data-pos="1849">做。</span><span class="seg" data-pos="1853">做。</span><span class="seg" data-pos="1857">做。</span><span class="seg" data-pos="1861">做。</span><span class="seg" data-pos="1865">做。</span><span class="seg" data-pos="1869">做。</span><span class="seg" data-pos="1873">做。</span><span class="seg" data-pos="1877">做。</span><span class="seg" data-pos="1881">做。</span><span class="seg" data-pos="1885">做。</span><span class="seg" data-pos="1889">做。</span><span class="seg" data-pos="1893">做。</span><span class="seg" data-pos="1897">做。</span><span class="seg" data-pos="1901">做。</span><span class="seg" data-pos="1905">做。</span><span class="seg" data-pos="1909">做。</span><span class="seg" data-pos="1913">做。</span><span class="seg" data-pos="1917">做。</span><span class="seg" data-pos="1921">做。</span><span class="seg" data-pos="1925">做。</span><span class="seg" data-pos="1929">（输出。</span><span class="seg" data-pos="1933">）
+</span><span class="seg" data-pos="1936">做。</span><span class="seg" data-pos="1940">做。</span><span class="seg" data-pos="1944">grep。</span><span class="seg" data-pos="1951">做。</span><span class="seg" data-pos="1955">做。</span><span class="seg" data-pos="1959">找不到？</span><span class="seg" data-pos="1963">先 grep 'source_before' 看上下文。</span><span class="seg" data-pos="1993">做。</span><span class="seg" data-pos="1997">做。</span><span class="seg" data-pos="2001">做。</span><span class="seg" data-pos="2005">做。</span><span class="seg" data-pos="2009">做。</span><span class="seg" data-pos="2013">做。</span><span class="seg" data-pos="2017">做。</span><span class="seg" data-pos="2021">做。</span><span class="seg" data-pos="2025">做。</span><span class="seg" data-pos="2029">做。</span><span class="seg" data-pos="2033">做。</span><span class="seg" data-pos="2037">做。</span><span class="seg" data-pos="2041">做。</span><span class="seg" data-pos="2045">（输出 tool call 了！</span><span class="seg" data-pos="2061">）
+</span><span class="seg" data-pos="2064">做。</span><span class="seg" data-pos="2068">做。</span><span class="seg" data-pos="2072">做。</span><span class="seg" data-pos="2076">做。</span><span class="seg" data-pos="2080">做。</span><span class="seg" data-pos="2084">做。</span><span class="seg" data-pos="2088">做。</span><span class="seg" data-pos="2092">做。</span><span class="seg" data-pos="2096">做。</span><span class="seg" data-pos="2100">做。</span><span class="seg" data-pos="2104">做。</span><span class="seg" data-pos="2108">做。</span><span class="seg" data-pos="2112">做。</span><span class="seg" data-pos="2116">做。</span><span class="seg" data-pos="2120">做。</span><span class="seg" data-pos="2124">做。</span><span class="seg" data-pos="2128">做。</span><span class="seg" data-pos="2132">做。</span><span class="seg" data-pos="2136">做。</span><span class="seg" data-pos="2140">做。</span><span class="seg" data-pos="2144">做。</span><span class="seg" data-pos="2148">做。</span><span class="seg" data-pos="2152">做。</span><span class="seg" data-pos="2156">做。</span><span class="seg" data-pos="2160">做。</span><span class="seg" data-pos="2164">做。</span><span class="seg" data-pos="2168">做。</span><span class="seg" data-pos="2172">做。</span><span class="seg" data-pos="2176">做。</span><span class="seg" data-pos="2180">做。</span><span class="seg" data-pos="2184">做。</span><span class="seg" data-pos="2188">做。</span><span class="seg" data-pos="2192">做。</span><span class="seg" data-pos="2196">做。</span><span class="seg" data-pos="2200">做。</span><span class="seg" data-pos="2204">做。</span><span class="seg" data-pos="2208">做。</span><span class="seg" data-pos="2212">做。</span><span class="seg" data-pos="2216">做。</span><span class="seg" data-pos="2220">做。</span><span class="seg" data-pos="2224">做。</span><span class="seg" data-pos="2228">做。</span><span class="seg" data-pos="2232">做。</span><span class="seg" data-pos="2236">做。</span><span class="seg" data-pos="2240">做。</span><span class="seg" data-pos="2244">做。</span><span class="seg" data-pos="2248">做。</span><span class="seg" data-pos="2252">做。</span><span class="seg" data-pos="2256">做。</span><span class="seg" data-pos="2260">做。</span><span class="seg" data-pos="2264">做。</span><span class="seg" data-pos="2268">做。</span><span class="seg" data-pos="2272">做。</span><span class="seg" data-pos="2276">做。</span><span class="seg" data-pos="2280">做。</span><span class="seg" data-pos="2284">做。</span><span class="seg" data-pos="2288">做。</span><span class="seg" data-pos="2292">做。</span><span class="seg" data-pos="2296">做。</span><span class="seg" data-pos="2300">做。</span><span class="seg" data-pos="2304">做。</span><span class="seg" data-pos="2308">做。</span><span class="seg" data-pos="2312">做。</span><span class="seg" data-pos="2316">做。</span><span class="seg" data-pos="2320">做。</span><span class="seg" data-pos="2324">做。</span><span class="seg" data-pos="2328">做。</span><span class="seg" data-pos="2332">做。</span><span class="seg" data-pos="2336">做。</span><span class="seg" data-pos="2340">做。</span><span class="seg" data-pos="2344">做。</span><span class="seg" data-pos="2348">做。</span><span class="seg" data-pos="2352">做。</span><span class="seg" data-pos="2356">做。</span><span class="seg" data-pos="2360">做。</span><span class="seg" data-pos="2364">做。</span><span class="seg" data-pos="2368">做。</span><span class="seg" data-pos="2372">做。</span><span class="seg" data-pos="2376">做。</span><span class="seg" data-pos="2380">做。</span><span class="seg" data-pos="2384">做。</span><span class="seg" data-pos="2388">做。</span><span class="seg" data-pos="2392">做。</span><span class="seg" data-pos="2396">做。</span><span class="seg" data-pos="2400">做。</span><span class="seg" data-pos="2404">做。</span><span class="seg" data-pos="2408">做。</span><span class="seg" data-pos="2412">做。</span><span class="seg" data-pos="2416">做。</span><span class="seg" data-pos="2420">做。</span><span class="seg" data-pos="2424">做。</span><span class="seg" data-pos="2428">做。</span><span class="seg" data-pos="2432">做。</span><span class="seg" data-pos="2436">做。</span><span class="seg" data-pos="2440">做。</span><span class="seg" data-pos="2444">做。</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR05" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR05" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR05" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<section class="item" data-id="R06">
+  <h3>R06 <span class="dim">1809 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR06" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR06" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR06" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR06" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR06" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR06" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR06" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR06" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR06" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR06" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR06">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">台账已经有 F7 节（2026-10-16 22:33–22:51 v6 独立签收复核），说明后续会话已经更新过台账了。</span><span class="seg" data-pos="60">我刚才的 edit 尝试是因为没读文件而失败。</span><span class="seg" data-pos="85">现在读到了 280-369 行。</span><span class="seg" data-pos="101">F6 节（294 行）还是&quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="155">&quot;
+</span><span class="seg" data-pos="158">但 F7 已经记录了 v6 的实际复算结果（PASS，3 格，硬违规 0）。</span><span class="seg" data-pos="198">所以台账其实已经记录了 v6 的结果，只是 F6 那行&quot;预期&quot;没有改成结果。</span><span class="seg" data-pos="238">但用户现在说：&quot;不要总结或讨论任务。</span><span class="seg" data-pos="256">请直接执行之前任务中已经明确、尚未完成的下一项具体操作。</span><span class="seg" data-pos="284">如果缺少必要信息，只指出缺少什么。</span><span class="seg" data-pos="301">&quot;
+</span><span class="seg" data-pos="304">之前明确、尚未完成的操作是：更新台账 F6 节的&quot;预期&quot;为实际结果。</span><span class="seg" data-pos="340">但注意：F7 节已经存在（说明后续会话做了 v6 签收复核，比我知识里的更晚）。</span><span class="seg" data-pos="380">F6 的&quot;预期&quot;可以改成结果，但 F7 已经有实际结果。</span><span class="seg" data-pos="410">我应该：
+</span><span class="seg" data-pos="415">- 把 F6 的&quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="464">&quot;改成实际结果（引用 F7）。</span><span class="seg" data-pos="481">或者：既然 F7 已经存在，F6 的&quot;预期&quot;改成&quot;结果&quot;以保持台账一致。</span><span class="seg" data-pos="519">做：edit F6 那行。</span><span class="seg" data-pos="534">但注意 F7 说 v6 的复核结论是&quot;离线通过，仍不得签发&quot;（因为第 ③ 项 M3 §1 实机核对未做）。</span><span class="seg" data-pos="587">所以 v6 的整体状态是：离线验证 PASS，但还没实机验收。</span><span class="seg" data-pos="620">所以台账 F6 的&quot;预期&quot;改为实际结果——但要注明&quot;结论见 F7&quot;。</span><span class="seg" data-pos="656">做。</span><span class="seg" data-pos="660">edit F6 294 行。</span><span class="seg" data-pos="676">【edit 279? 294 行】
+</span><span class="seg" data-pos="695">old = &quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="742">&quot;
+</span><span class="seg" data-pos="745">new = &quot;**结果（见 F7）**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）——已由独立复核确认（`Review/1016_2242_dsh_review_m3_v6.md`）。</span><span class="seg" data-pos="848">&quot;
+</span><span class="seg" data-pos="851">做。</span><span class="seg" data-pos="855">这满足&quot;直接执行下一项具体操作&quot;。</span><span class="seg" data-pos="874">做。</span><span class="seg" data-pos="878">【edit】
+</span><span class="seg" data-pos="886">做。</span><span class="seg" data-pos="890">注意：文件已读（280-369 行包含 294 行）。</span><span class="seg" data-pos="917">edit 应该能通过。</span><span class="seg" data-pos="930">但 fs-observation-policy 要求读过文件——我刚才读了 offset 280 limit 90，覆盖了 280-369。</span><span class="seg" data-pos="1000">294 行在其中。</span><span class="seg" data-pos="1009">应该可以 edit 了。</span><span class="seg" data-pos="1023">做。</span><span class="seg" data-pos="1027">做。</span><span class="seg" data-pos="1031">【edit】
+</span><span class="seg" data-pos="1039">做。</span><span class="seg" data-pos="1043">做。</span><span class="seg" data-pos="1047">做。</span><span class="seg" data-pos="1051">做。</span><span class="seg" data-pos="1055">做。</span><span class="seg" data-pos="1059">做。</span><span class="seg" data-pos="1063">做。</span><span class="seg" data-pos="1067">（输出 edit。</span><span class="seg" data-pos="1076">）
+</span><span class="seg" data-pos="1079">做。</span><span class="seg" data-pos="1083">做。</span><span class="seg" data-pos="1087">做。</span><span class="seg" data-pos="1091">做。</span><span class="seg" data-pos="1095">做。</span><span class="seg" data-pos="1099">做。</span><span class="seg" data-pos="1103">做。</span><span class="seg" data-pos="1107">做。</span><span class="seg" data-pos="1111">做。</span><span class="seg" data-pos="1115">做。</span><span class="seg" data-pos="1119">做。</span><span class="seg" data-pos="1123">做。</span><span class="seg" data-pos="1127">做。</span><span class="seg" data-pos="1131">做。</span><span class="seg" data-pos="1135">做。</span><span class="seg" data-pos="1139">做。</span><span class="seg" data-pos="1143">做。</span><span class="seg" data-pos="1147">做。</span><span class="seg" data-pos="1151">做。</span><span class="seg" data-pos="1155">做。</span><span class="seg" data-pos="1159">做。</span><span class="seg" data-pos="1163">做。</span><span class="seg" data-pos="1167">做。</span><span class="seg" data-pos="1171">做。</span><span class="seg" data-pos="1175">做。</span><span class="seg" data-pos="1179">做。</span><span class="seg" data-pos="1183">做。</span><span class="seg" data-pos="1187">做。</span><span class="seg" data-pos="1191">做。</span><span class="seg" data-pos="1195">做。</span><span class="seg" data-pos="1199">做。</span><span class="seg" data-pos="1203">做。</span><span class="seg" data-pos="1207">做。</span><span class="seg" data-pos="1211">做。</span><span class="seg" data-pos="1215">做。</span><span class="seg" data-pos="1219">做。</span><span class="seg" data-pos="1223">做。</span><span class="seg" data-pos="1227">做。</span><span class="seg" data-pos="1231">做。</span><span class="seg" data-pos="1235">做。</span><span class="seg" data-pos="1239">做。</span><span class="seg" data-pos="1243">做。</span><span class="seg" data-pos="1247">做。</span><span class="seg" data-pos="1251">做。</span><span class="seg" data-pos="1255">做。</span><span class="seg" data-pos="1259">做。</span><span class="seg" data-pos="1263">做。</span><span class="seg" data-pos="1267">做。</span><span class="seg" data-pos="1271">做。</span><span class="seg" data-pos="1275">做。</span><span class="seg" data-pos="1279">做。</span><span class="seg" data-pos="1283">做。</span><span class="seg" data-pos="1287">做。</span><span class="seg" data-pos="1291">做。</span><span class="seg" data-pos="1295">做。</span><span class="seg" data-pos="1299">做。</span><span class="seg" data-pos="1303">做。</span><span class="seg" data-pos="1307">做。</span><span class="seg" data-pos="1311">做。</span><span class="seg" data-pos="1315">做。</span><span class="seg" data-pos="1319">做。</span><span class="seg" data-pos="1323">做。</span><span class="seg" data-pos="1327">做。</span><span class="seg" data-pos="1331">做。</span><span class="seg" data-pos="1335">做。</span><span class="seg" data-pos="1339">做。</span><span class="seg" data-pos="1343">做。</span><span class="seg" data-pos="1347">做。</span><span class="seg" data-pos="1351">做。</span><span class="seg" data-pos="1355">做。</span><span class="seg" data-pos="1359">做。</span><span class="seg" data-pos="1363">做。</span><span class="seg" data-pos="1367">做。</span><span class="seg" data-pos="1371">做。</span><span class="seg" data-pos="1375">做。</span><span class="seg" data-pos="1379">做。</span><span class="seg" data-pos="1383">做。</span><span class="seg" data-pos="1387">做。</span><span class="seg" data-pos="1391">做。</span><span class="seg" data-pos="1395">做。</span><span class="seg" data-pos="1399">做。</span><span class="seg" data-pos="1403">做。</span><span class="seg" data-pos="1407">做。</span><span class="seg" data-pos="1411">做。</span><span class="seg" data-pos="1415">做。</span><span class="seg" data-pos="1419">做。</span><span class="seg" data-pos="1423">做。</span><span class="seg" data-pos="1427">做。</span><span class="seg" data-pos="1431">做。</span><span class="seg" data-pos="1435">做。</span><span class="seg" data-pos="1439">做。</span><span class="seg" data-pos="1443">做。</span><span class="seg" data-pos="1447">做。</span><span class="seg" data-pos="1451">做。</span><span class="seg" data-pos="1455">做。</span><span class="seg" data-pos="1459">做。</span><span class="seg" data-pos="1463">做。</span><span class="seg" data-pos="1467">做。</span><span class="seg" data-pos="1471">做。</span><span class="seg" data-pos="1475">做。</span><span class="seg" data-pos="1479">做。</span><span class="seg" data-pos="1483">做。</span><span class="seg" data-pos="1487">做。</span><span class="seg" data-pos="1491">做。</span><span class="seg" data-pos="1495">做。</span><span class="seg" data-pos="1499">做。</span><span class="seg" data-pos="1503">做。</span><span class="seg" data-pos="1507">做。</span><span class="seg" data-pos="1511">做。</span><span class="seg" data-pos="1515">做。</span><span class="seg" data-pos="1519">做。</span><span class="seg" data-pos="1523">做。</span><span class="seg" data-pos="1527">做。</span><span class="seg" data-pos="1531">做。</span><span class="seg" data-pos="1535">做。</span><span class="seg" data-pos="1539">做。</span><span class="seg" data-pos="1543">做。</span><span class="seg" data-pos="1547">做。</span><span class="seg" data-pos="1551">做。</span><span class="seg" data-pos="1555">做。</span><span class="seg" data-pos="1559">做。</span><span class="seg" data-pos="1563">做。</span><span class="seg" data-pos="1567">做。</span><span class="seg" data-pos="1571">做。</span><span class="seg" data-pos="1575">做。</span><span class="seg" data-pos="1579">做。</span><span class="seg" data-pos="1583">做。</span><span class="seg" data-pos="1587">做。</span><span class="seg" data-pos="1591">做。</span><span class="seg" data-pos="1595">做。</span><span class="seg" data-pos="1599">做。</span><span class="seg" data-pos="1603">做。</span><span class="seg" data-pos="1607">做。</span><span class="seg" data-pos="1611">做。</span><span class="seg" data-pos="1615">做。</span><span class="seg" data-pos="1619">做。</span><span class="seg" data-pos="1623">做。</span><span class="seg" data-pos="1627">做。</span><span class="seg" data-pos="1631">做。</span><span class="seg" data-pos="1635">做。</span><span class="seg" data-pos="1639">做。</span><span class="seg" data-pos="1643">做。</span><span class="seg" data-pos="1647">做。</span><span class="seg" data-pos="1651">做。</span><span class="seg" data-pos="1655">做。</span><span class="seg" data-pos="1659">做。</span><span class="seg" data-pos="1663">做。</span><span class="seg" data-pos="1667">做。</span><span class="seg" data-pos="1671">做。</span><span class="seg" data-pos="1675">做。</span><span class="seg" data-pos="1679">做。</span><span class="seg" data-pos="1683">做。</span><span class="seg" data-pos="1687">做。</span><span class="seg" data-pos="1691">做。</span><span class="seg" data-pos="1695">做。</span><span class="seg" data-pos="1699">做。</span><span class="seg" data-pos="1703">做。</span><span class="seg" data-pos="1707">做。</span><span class="seg" data-pos="1711">做。</span><span class="seg" data-pos="1715">做。</span><span class="seg" data-pos="1719">做。</span><span class="seg" data-pos="1723">做。</span><span class="seg" data-pos="1727">做。</span><span class="seg" data-pos="1731">做。</span><span class="seg" data-pos="1735">做。</span><span class="seg" data-pos="1739">做。</span><span class="seg" data-pos="1743">做。</span><span class="seg" data-pos="1747">做。</span><span class="seg" data-pos="1751">做。</span><span class="seg" data-pos="1755">做。</span><span class="seg" data-pos="1759">做。</span><span class="seg" data-pos="1763">做。</span><span class="seg" data-pos="1767">做。</span><span class="seg" data-pos="1771">做。</span><span class="seg" data-pos="1775">做。</span><span class="seg" data-pos="1779">做。</span><span class="seg" data-pos="1783">做。</span><span class="seg" data-pos="1787">做。</span><span class="seg" data-pos="1791">做。</span><span class="seg" data-pos="1795">做。</span><span class="seg" data-pos="1799">做。</span><span class="seg" data-pos="1803">（执行。</span><span class="seg" data-pos="1807">）
+</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR06" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR06" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR06" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<section class="item" data-id="R07">
+  <h3>R07 <span class="dim">1422 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR07" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR07" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR07" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR07" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR07" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR07" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR07" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR07" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR07" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR07" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR07">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">读到 F6 节末尾（294 行&quot;预期&quot;）。</span><span class="seg" data-pos="21">现在台账 F6 节还有 F7 节（320-369）已经记录了 v6 的复核结果。</span><span class="seg" data-pos="63">用户要求：直接执行之前任务中已经明确、尚未完成的下一项具体操作。</span><span class="seg" data-pos="97">之前明确但尚未完成的下一项操作是什么？</span><span class="seg" data-pos="118">从 F6 节和 v6 验证过程：
+</span><span class="seg" data-pos="135">1. ✅ v6 完成（PASS，硬违规 0）
+</span><span class="seg" data-pos="158">2. ✅ v5→v6 差异验证（3 格，符合预期）
+</span><span class="seg" data-pos="184">3. 台账 F6 节需要更新（&quot;预期&quot; → 实际结果）—— 这是之前明确的操作（&quot;更新台账 F6 节&quot;）
+</span><span class="seg" data-pos="237">4. 台账 F7 节已存在（复核报告已记录）
+</span><span class="seg" data-pos="261">从 F7 节看，v6 复核已做（PASS）。</span><span class="seg" data-pos="283">F7 节说&quot;上一轮 3 项需改的处置&quot;：① 修一半（文案没跟上代码）、② 已修、③ M3 §1 实机核对仍未做（v6 未安装）。</span><span class="seg" data-pos="349">所以&quot;下一个具体操作&quot;应该是：
+</span><span class="seg" data-pos="365">- 要么更新 F6 节（把&quot;预期&quot;改成实际结果）
+</span><span class="seg" data-pos="390">- 要么处理 F7 节说的遗留项
+</span><span class="seg" data-pos="408">但用户说&quot;不要总结或讨论任务。</span><span class="seg" data-pos="423">请直接执行之前任务中已经明确、尚未完成的下一项具体操作。</span><span class="seg" data-pos="451">&quot;
+</span><span class="seg" data-pos="454">之前明确的操作（F6 节）是&quot;更新台账 F6 节&quot;——把预期改为实际。</span><span class="seg" data-pos="489">但 F7 节已经记录了 v6 复核结果，所以 F6 节的&quot;预期&quot;只需改成结果即可（或者已经被 F7 覆盖）。</span><span class="seg" data-pos="545">嗯，让我重新理解上下文。</span><span class="seg" data-pos="557">这个会话之前的工作：
+</span><span class="seg" data-pos="568">- v6 重跑完成（PASS）
+</span><span class="seg" data-pos="584">- v5→v6 验证完成（3 格）
+</span><span class="seg" data-pos="602">- 我上一轮想 edit 台账 F6 节被拒（需要先读）→ 我读了
+</span><span class="seg" data-pos="637">现在用户说：执行之前任务中已经明确、尚未完成的下一项具体操作。</span><span class="seg" data-pos="670">之前明确的操作 = 更新台账 F6 节的&quot;预期&quot;为实际结果。</span><span class="seg" data-pos="702">所以：edit 台账 F6 节（把&quot;**预期**：v6 相对 v5 只多改 **3 格**...&quot;改成实际结果）。</span><span class="seg" data-pos="761">这需要 apply edit。</span><span class="seg" data-pos="776">之前 edit 失败是因为没读文件，现在读了（280-369 行，包含 294 行）。</span><span class="seg" data-pos="821">做 edit。</span><span class="seg" data-pos="830">target：294 行&quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="883">&quot;
+</span><span class="seg" data-pos="886">替换为实际结果（简洁版）：
+</span><span class="seg" data-pos="900">```
+</span><span class="seg" data-pos="904">**结果（22:32 跑完）**：五阶段全 `exit=0`，`verdict=PASS`、`errors` 空；`changed_ownership_cells=214`（v5 的 211 + 3）；
+</span><span class="seg" data-pos="1006">`fully_hidden_weapon_violations` 合计 **0**；冻结包 **`FrozenSwordGrip_bd95f89cbd16`**。</span><span class="seg" data-pos="1088">逐像素比对 v5 → v6：**差异 6 像素 = 3 格**，方向全部「武器 → 身体」，正是复核建议 4、5 点名的 3 格（详见 F7）。</span><span class="seg" data-pos="1161">```
+</span><span class="seg" data-pos="1166">但 F7 节已存在且更完整。</span><span class="seg" data-pos="1180">所以 F6 节这里只需把&quot;预期&quot;更新为&quot;结果&quot;，指向 F7。</span><span class="seg" data-pos="1212">好，做 edit。</span><span class="seg" data-pos="1223">用 edit 工具，old_string = &quot;**预期**：v6 相对 v5 只多改 **3 格**（硬违规格 1 → 0）。</span><span class="seg" data-pos="1287">&quot;，new = 实际结果。</span><span class="seg" data-pos="1302">做。</span><span class="seg" data-pos="1306">嗯，但等等——F7 节（320-369）是 22:33-22:51 的独立复核，已经记录了 v6 结果。</span><span class="seg" data-pos="1358">那 F6 节的&quot;预期&quot;条目是否还有必要改？</span><span class="seg" data-pos="1379">用户之前（这个会话早先）明确要&quot;更新台账 F6 节&quot;。</span><span class="seg" data-pos="1406">所以做。</span><span class="seg" data-pos="1412">edit。</span><span class="seg" data-pos="1419">做。</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR07" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR07" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR07" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<section class="item" data-id="R08">
+  <h3>R08 <span class="dim">1764 字</span></h3>
+
+  <div class="q"><b>A. 是否存在「持续绕圈」？</b>
+    <span class="hint">反复重述同一件事、反复权衡同一个决定，但没有推进（不增加信息、不排除方案、不形成决定）。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="loop-aR08" value="yes" class="loop"> 有</label>
+    <label><input type="radio" name="loop-aR08" value="no" class="loop"> 无</label>
+    <label><input type="radio" name="loop-aR08" value="cant" class="loop"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>B. 是否存在「机械重复」？</b>
+    <span class="hint">同一句或同一短语<b>连续出现 5 次以上</b>，中间没有实质内容。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="repeat-aR08" value="yes" class="repeat"> 有</label>
+    <label><input type="radio" name="repeat-aR08" value="no" class="repeat"> 无</label>
+    <label><input type="radio" name="repeat-aR08" value="cant" class="repeat"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>C. 若 A 或 B 为「有」：出现之后，这段推理是否又恢复了推进？</b>
+    <span class="hint">「恢复推进」只指：重新增加了信息、排除了方案、或形成了可执行的决定。文字重新变得流畅<b>不算</b>。若全程没有恢复，选「否」。</span></div>
+  <div class="opts">
+    <label><input type="radio" name="resume-aR08" value="yes" class="resume"> 是，之后重新推进了</label>
+    <label><input type="radio" name="resume-aR08" value="no" class="resume"> 否，没有恢复</label>
+    <label><input type="radio" name="resume-aR08" value="na" class="resume"> A、B 都选「无」，不适用</label>
+    <label><input type="radio" name="resume-aR08" value="cant" class="resume"> 无法判断</label>
+  </div>
+
+  <div class="q"><b>D. 点选一处最能说明你判断的文本</b>
+    <span class="hint">可选。点某一句即可，用于说明依据；<b>这不是「起点」</b>，不会用来计算提前量。</span></div>
+  <div class="row">
+    <button class="pick">点文本选择</button>
+    <span class="picked" id="p-aR08">未选择</span>
+    <button class="clr">清除</button>
+    <input class="picknote" type="text" placeholder="若选了，一句话说明它说明了什么（可选）">
+  </div>
+  <input type="hidden" class="pos" value="">
+  <pre><span class="seg" data-pos="0">我已经读了台账（F6/F7 节）。</span><span class="seg" data-pos="17">当前唯一未完成的下一步是：**更新 F6 节，把&quot;预期&quot;改为实际结果**。</span><span class="seg" data-pos="54">但注意 F7 节（22:33–22:51 的复核）已经记录了 v6 的完整结果。</span><span class="seg" data-pos="94">所以台账已经有 F7 记录了。</span><span class="seg" data-pos="111">那么&quot;更新台账 F6 节&quot;这一步是否还必要？</span><span class="seg" data-pos="133">F7 已经完整记录了 v6 结果。</span><span class="seg" data-pos="150">F6 里那句&quot;预期&quot;是当时写的。</span><span class="seg" data-pos="168">但用户要求&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="204">之前任务明确未完成的：
+</span><span class="seg" data-pos="216">- v6 已通过验证（F7 记录）
+</span><span class="seg" data-pos="234">- 剩下的是 **F7 已知的待办**：
+</span><span class="seg" data-pos="255">  - ① 运行期补丁 manifest 文案没跟上代码（需改一句）
+</span><span class="seg" data-pos="290">  - ③ M3 §1 实机核对仍未做（v6 未安装）
+</span><span class="seg" data-pos="318">  - 工单 §4 需要标注
+</span><span class="seg" data-pos="334">以及 **v6 安装与实机验收**（这是签发路径）。</span><span class="seg" data-pos="362">最具体的&quot;下一步&quot;是什么？</span><span class="seg" data-pos="377">从用户之前的要求看：v6 通过复核后，下一步是**安装 v6 到生产**（替换 Art/Characters/Player），然后做 M3 §1 实机核对（v6 实机 vs v6 条带 = 0/132），这是签发的前置。</span><span class="seg" data-pos="489">但安装是我之前明确拒绝过（&quot;未经用户批准不改生产资产&quot;）。</span><span class="seg" data-pos="518">不过用户多次说&quot;把剩下的做完&quot;、&quot;全权处理&quot;，现在又说&quot;直接执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="576">所以下一步 = 安装 v6 到生产 + 实机验收。</span><span class="seg" data-pos="603">但安装需要 Unity 导入、打包、实机截图 —— 这是大工程。</span><span class="seg" data-pos="637">不过等等，F7 说&quot;③ M3 §1 实机核对仍未做（v6 未安装）&quot;。</span><span class="seg" data-pos="672">所以确实需要先安装。</span><span class="seg" data-pos="684">让我先确认当前工作批和生产的状态。</span><span class="seg" data-pos="701">实际上，之前我已经在 F6 记了&quot;v6 只差 3 格&quot;。</span><span class="seg" data-pos="729">现在最直接、明确、未完成的下一步是 **把 v6 安装到生产资产目录**。</span><span class="seg" data-pos="768">但这是&quot;生产资产替换&quot;——之前用户说&quot;全权处理&quot;，且现在是继续任务。</span><span class="seg" data-pos="802">我认为该做。</span><span class="seg" data-pos="810">不过要谨慎：安装前应该确认 v6 与 v3 基线的关系（F7 说&quot;与安装中的 v3 基线逐字节相同&quot;，只有 3 格差异）。</span><span class="seg" data-pos="871">所以安装 v6 = 把玩家资产从 v3 换成 v6，视觉上只差 3 个像素（那 3 格武器不再盖在身体上）。</span><span class="seg" data-pos="927">让我先检查生产目录当前是什么状态，确认怎么安装（哪个脚本/流程）。</span><span class="seg" data-pos="962">实际上，之前 review 都基于&quot;candidate 包&quot;和&quot;生产现状&quot;。</span><span class="seg" data-pos="1000">安装流程应该是：把 v6 的 candidate 帧+渲染+复合帧复制到 Assets/Art/Characters/Player/...，然后 Unity 重新导入生成 sprite，打包。</span><span class="seg" data-pos="1098">但这会不会破坏 v3 的&quot;视觉零差异&quot;承诺？</span><span class="seg" data-pos="1120">F7 说 v6 与 v3 只有 3 格差异（那 3 格是修复）。</span><span class="seg" data-pos="1152">安装 v6 会改变那 3 格的视觉——这正是修复目的。</span><span class="seg" data-pos="1181">所以安装是合理的下一步。</span><span class="seg" data-pos="1195">不过，我需要看 review 报告和文档里是否已经有明确的安装步骤/脚本。</span><span class="seg" data-pos="1232">让我查一下。</span><span class="seg" data-pos="1240">实际上，用户之前说&quot;剩下没做的应该是 M3 实机验收 + 最终签发&quot;，并问我&quot;你做么&quot;。</span><span class="seg" data-pos="1284">我回了&quot;等你的 M3 实测结果&quot;以及确认签发受阻。</span><span class="seg" data-pos="1311">现在用户说&quot;直接执行下一项具体操作&quot;。</span><span class="seg" data-pos="1332">最明确、未完成的下一步 = **安装 v6 到生产资产 + 做实机验收**。</span><span class="seg" data-pos="1372">但这非常大（Unity 导入 + 打包 + 实机截图）。</span><span class="seg" data-pos="1402">或者更小、更明确的下一步：**修 F7 报告里 ① 那一句文案**（manifest 说明文本没跟上代码）。</span><span class="seg" data-pos="1456">这是明确的、小的、未完成的。</span><span class="seg" data-pos="1472">用户说&quot;执行之前任务中已经明确、尚未完成的下一项具体操作&quot;。</span><span class="seg" data-pos="1504">&quot;下一步&quot;应该是最先该做的那个。</span><span class="seg" data-pos="1520">按逻辑，签发前要先安装+实机验收。</span><span class="seg" data-pos="1537">但安装是大工程。</span><span class="seg" data-pos="1547">我认为更合理：先做最小明确的一步 —— 修 ① 的文案（一句话），这是 F7 明确指出的&quot;需改一句&quot;。</span><span class="seg" data-pos="1600">但语义上&quot;下一项具体操作&quot;是承接整个任务链的下一步。</span><span class="seg" data-pos="1626">整个任务链：v6 复核通过 → 安装 → 实机验收 → 签发。</span><span class="seg" data-pos="1659">让我先查一下当前状态：生产资产是什么版本、v6 是否已安装。</span><span class="seg" data-pos="1689">这样能确定下一步。</span><span class="seg" data-pos="1700">先读 review 报告和查生产目录状态。</span><span class="seg" data-pos="1723">实际上，为了不重复规划，我直接做：查生产资产当前版本 + 确认安装方式。</span><span class="seg" data-pos="1761">做。</span></pre>
+
+  <div class="q"><b>E. 你对 A/B/C 三项判断的整体把握</b></div>
+  <div class="opts">
+    <label><input type="radio" name="conf-aR08" value="high" class="conf"> 确定</label>
+    <label><input type="radio" name="conf-aR08" value="mid" class="conf"> 比较确定</label>
+    <label><input type="radio" name="conf-aR08" value="low" class="conf"> 只是猜测</label>
+  </div>
+
+  <div class="q"><b>F. 备注（可选）</b>
+    <span class="hint">哪一项最难判断、卡在哪里；若选了「之后恢复推进」，说明在哪里恢复</span></div>
+  <input class="note" type="text" placeholder="选填">
+</section>
+<script>
+const pending={};
+document.querySelectorAll('.item').forEach(sec=>{
+  const id=sec.dataset.id;
+  sec.querySelector('.pick').addEventListener('click',e=>{
+    pending[id]=true;
+    e.target.textContent='现在点文本…';
+    setTimeout(()=>{e.target.textContent='点文本选择'},2500);
+  });
+  sec.querySelector('.clr').addEventListener('click',()=>{
+    sec.querySelector('.pos').value='';
+    sec.querySelector('.picked').textContent='未选择';
+  });
+  sec.querySelectorAll('.seg').forEach(sp=>{
+    sp.addEventListener('click',()=>{
+      if(!pending[id])return;
+      sec.querySelector('.pos').value=sp.dataset.pos;
+      sec.querySelector('.picked').textContent='第 '+sp.dataset.pos+' 字';
+      delete pending[id];
+    });
+  });
+});
+function val(sec,cls){
+  const el=sec.querySelector('.'+cls+':checked');
+  return el?el.value:'';
+}
+function ex(){
+  const out=[...document.querySelectorAll('.item')].map(el=>({
+    blindId:el.dataset.id,
+    loop:val(el,'loop'),
+    repeat:val(el,'repeat'),
+    resume:val(el,'resume'),
+    pickPos:el.querySelector('.pos').value,
+    pickNote:el.querySelector('.picknote').value,
+    conf:val(el,'conf'),
+    note:el.querySelector('.note').value,
+  }));
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='run1v3-A-answers.json';a.click();
+}
+setInterval(()=>{
+  const done=[...document.querySelectorAll('.item')].filter(el=>{
+    return val(el,'loop')&&val(el,'repeat')&&val(el,'resume')&&val(el,'conf');
+  }).length;
+  document.getElementById('done').textContent='已完成 '+done+' / 8';
+},1500);
+</script>
+</body></html>
