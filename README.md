@@ -1,5 +1,7 @@
 # Repetition measurement — replication package
 
+> **Field report: [REPORT.md](REPORT.md)** — a standalone write-up of what this work found, what it did not, and what to do differently if you run a repetition guard. Written for people building agent monitors rather than for reviewers.
+
 Replication materials for the working paper **"When Repetition Depends on the Detector: A Case Study of Measurement Blind Spots in a Tool-Using Reasoning Agent"** (working paper draft, October 2026).
 
 Versions are tracked by Git tags. See `CHANGELOG.md` for what changed between tags.
