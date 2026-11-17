@@ -54,6 +54,11 @@ labels/
   run1-full.public.json     per-item metadata and the SHA-256 of each response text
   batch-B-reconstructed/    per-item labels from two annotators (reconstructed, not raw submissions)
   run1v3-A-原始/            batch A material and answers, archived as originally exported
+
+field-reports/
+  README.md                 index and rules for the ongoing field records
+  2026-11-06-criterion-divergence.md
+                            two November cases where the criterion and the features disagree
 ```
 
 The three `spec-*.txt` files have **identical SHA-256**. That is the point, not a mistake: the same code run from three different locations produced byte-identical output.
@@ -96,5 +101,6 @@ Requires Node.js 18+ and Python 3.10+, standard library only, no network access.
 |---|---|
 | `v0.1.0` | Original 14-file package: `code/` and the batch-B labels |
 | `v0.2.1` | Rebuilt release asset, byte-identical to the tag and self-contained |
-| `v0.2.2` | **Current.** Adds `governance/`; the manifest records the paper versions it matches |
+| `v0.2.2` | Adds `governance/`; the manifest records the paper versions it matches |
+| `v0.4.0` | **Current.** Adds `field-reports/`; no code, input or manifest change |
 | `v0.2.0` | Superseded; its release asset was withdrawn — see `governance/release-incident-2026-10-25.md` |

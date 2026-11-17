@@ -2,6 +2,22 @@
 
 Versions are Git tags on this repository. The repository name intentionally carries no version.
 
+## v0.4
+
+**Added**
+
+- `field-reports/` — a place for records that accumulate over time as the failure recurs, with an index and a statement of what each file must contain.
+- `field-reports/2026-11-06-criterion-divergence.md` — two November cases that break the October threshold from opposite sides. One degrades at line count 60 (below the fixed threshold of 100, caught only by the lowered climb-phase threshold); the other degrades at exactly 100, on the boundary, while all three formal features report nothing.
+
+**Notes**
+
+- Neither case is a positive example for `alternating_run`, and neither supports a claim about prevalence or mechanism. Both are stated as limitations in the file.
+- Raw session archives are not published; the file records what can and cannot be reproduced from them.
+
+**Unchanged**
+
+- All code, inputs, manifest entries and earlier reports. The October threshold derivation in `REPORT.md` is not retracted — the new file shows it was a property of that sample, not of the failure mode.
+
 ## v0.2.2
 
 **Added**
